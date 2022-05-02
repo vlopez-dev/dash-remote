@@ -1,0 +1,114 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    {% load static %}
+
+    <title>Inventario</title>
+
+<!-- font -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+  <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="  navbar navbar-dark sticky-top nav-color flex-md-nowrap p-0 shadow navbar-toggler-space ">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed navbar-toggler-space" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="{}">Sign out</a>
+
+    </div>
+  </div>
+</header>
+
+<div id=topheader class="container-fluid ">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{}">
+              <span><img src="https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-dashboard-user-interface-kmg-design-flat-kmg-design.png"/></span>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{}">
+              <span><img src="https://img.icons8.com/color/32/000000/company.png"/> </span>
+              Empresa
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{}">
+              <span><img src="https://img.icons8.com/color/32/000000/permanent-job.png"/></span>
+              Área
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{}">
+              <span><img src="https://img.icons8.com/color/32/000000/it.png"/></span>
+              Artículos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{}">
+              <span><img src="https://img.icons8.com/plasticine/32/000000/move-stock.png"/></span>
+              Movimientos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{}">
+              <span><img src="https://img.icons8.com/fluency/32/000000/scan-stock.png"/></span>
+              Stock
+            </a>
+          </li>
+          
+          
+        </ul>
+
+      </div>
+    </nav>
+
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+
+      {% block content %} 
+
+      {% endblock content %}
+    </main>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+
+  </body>
+</html>

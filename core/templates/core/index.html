@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container container_home ">
+    <div class="row">
+        <div class=" col-md-6">
+        <table class="table">
+            <h6>Equipos</h6>
+            <thead class="table-dark">
+                <td>Nombre</td>
+                <td>Dirección</td>
+                <td>Estado</td>
+
+            </thead>
+            {% for e in equipos  %}
+            <tbody>
+                <td>{{e.name}}</td>
+                <td>{{e.direction}}</td>
+                <td>{{e.state}}</td>
+                <td><button type="submit">reset</button></td>
+            </tbody>
+            
+            {% endfor %}
+
+          </table>
+        </div>
+
+</div>
+</div>
+
+
+
+
+
+{% endblock content %}
+

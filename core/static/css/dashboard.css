@@ -1,0 +1,283 @@
+
+
+
+root{
+  /*colores*/
+
+  --nav:#0063A6;
+
+  --fuentes:#444444;
+  --button:#83B232;
+  --bs-table-bg:#83B232 !important;
+
+}
+
+
+
+
+
+
+
+body {
+  font-size: .875rem;
+  }
+
+
+
+
+
+
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  /* rtl:raw:
+  right: 0;
+  */
+  bottom: 0;
+  /* rtl:remove */
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: var(--fuentes);
+
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: var(--fuentes);
+}
+
+.sidebar .nav-link.active {
+  color: #2470dc;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+  .nav-color{
+    background-color: #0060A2 !important;
+  }
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+
+
+
+
+.forms_st {
+  border-radius: 5px;
+  border: 1px solid gray ;
+  padding: 25px;
+
+}
+
+.table, th{
+  text-align: center !important;
+  /* border: 2px solid #A3E4DB; */
+  /* border-radius: 5px; */
+}
+
+
+.table>:not(caption)>*>*{
+  inset 0 0 0 9999px var(--bs-table-accent-bg)
+}
+
+.titulos{
+  margin-top: 25px;
+  text-align: center;
+  color: var(--fuentes);
+
+}
+
+.table_crud{
+  margin-top: 25px;
+}
+
+
+
+
+@media(max-width:767px) {
+  .container {
+      height: fit-content
+  }
+}
+
+.weather {
+  width: 77%
+}
+
+@media(max-width:767px) {
+  .weather {
+      width: 100%
+  }
+}
+
+.card-valores {
+  padding: 1rem;
+  margin: 1.5rem 0vw;
+  border-radius: 1rem;
+  background-color: white;
+  border-color: rgba(238, 237, 237, 0.22);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  text-align: center;
+  /* outline: 1px solid red; */
+}
+
+.shadow-form{
+  border-color: rgba(238, 237, 237, 0.22);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+
+.icons-nav{
+  width: 48px;
+}
+
+
+
+
+.video_login {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+
+
+
+
+.login-form{
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 3px );
+  -webkit-backdrop-filter: blur( 3px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+
+
+  .container_login{
+    margin-top: 150px;
+  }
+
+  .table-dark{
+    --bs-table-bg:#83B232!important;
+  }
+
+
+
+  .form_login{
+    padding: 64px;
+  }
+
+  .btn-color{
+    background-color: #83B232;
+    border-color: #83B232;
+  }
+
+  .container_home{
+    margin-top: 80px;
+  }
+
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #668a27;
+    border-color: #668a27; /*set the color you want here*/
+}
+
+
+#topheader .navbar-nav li > a {
+	text-transform: capitalize;
+	color: #333;
+	transition: background-color .2s, color .2s;
+	
+	&:hover,
+	&:focus {
+		background-color: #333;
+		color: #fff;
+	}
+}
+
+#topheader .navbar-nav li.active > a {
+	background-color: #333;
+	color: #fff;
+}
+
+.navbar-toggler-space{
+  right: 5rem !important;
+}
