@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% load bootstrap5 %}
+
+{% load crispy_forms_tags %}
+{{form.mobile|as_crispy_field}}
+
+{% block content %}
+<div class="container-sm">
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6  ">
+            <h5 class="titulos">Equipos</h5>
+            <form action=""method="POST"autocomplete="off"class="justify-content-center forms_st shadow-form  ">
+              <div class="mb-4">
+                {% csrf_token %} 
+
+                {{ form.name|as_crispy_field }}
+
+              </div>
+              <div class="mb-4">
+                {{ form.direction|as_crispy_field }}
+
+              </div>
+
+              <div class="d-grid gap-2 d-md-block">
+
+                  <button type="submit" class="btn btn-primary btn-color">Guardar</button>
+
+
+              </div>
+            </form>
+    </div>
+    
+</div>
+</div>
+
+{% endblock content %}

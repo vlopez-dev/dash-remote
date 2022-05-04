@@ -3,9 +3,10 @@ from . import views
 
 urlpatterns = [
     # path("",), #Localhost:p/empresa/agregar
-    path("",views.index,name='empresa_agregar'),
-    path("",views.restart,name='reset'),
-
+    path("home/",views.index,name='home'),
+    path("restart/",views.restart,name='restart'),
+    path("poweroff/",views.poweroff,name='poweroff'),
+    path("addserver/",views.add_server,name='add_server'),
 
 
 ]

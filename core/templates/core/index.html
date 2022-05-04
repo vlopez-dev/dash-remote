@@ -10,6 +10,15 @@
                 <td>Nombre</td>
                 <td>Dirección</td>
                 <td>Estado</td>
+                <td>Reinicio</td>
+                <td>Apagado</td>
+                <td>Memoria</td>
+                <td>Procesador</td>
+
+
+
+
+
 
             </thead>
             {% for e in equipos  %}
@@ -17,10 +26,21 @@
                 <td>{{e.name}}</td>
                 <td>{{e.direction}}</td>
                 <td>{{e.state}}</td>
-                <td><button type="submit">reset</button></td>
+                <td> <a href="{% url 'restart' %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a></td>
+                <td> <a href="{% url 'poweroff' %}"><img src="https://img.icons8.com/external-colours-bomsymbols-/25/000000/external-off-digital-design-colors-set-2-colours-bomsymbols-.png"/></a></td>
+
+
             </tbody>
             
             {% endfor %}
+
+            {% if messages %}
+                <ul class="messages">
+            {% for message in messages %}
+                 <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+             {% endfor %}
+                </ul>
+            {% endif %}
 
           </table>
         </div>
