@@ -5,12 +5,12 @@ from django.db import models
 
 
 class Equipo(models.Model):
-    id_equipo= models.AutoField(primary_key=True,null=False)    
+    id_equipo= models.AutoField(primary_key=True)    
     name = models.CharField( max_length=50)
     direction = models.CharField(max_length=50)
-    state = models.BooleanField()
-    memory_free=models.IntegerField()
-    pro_consum=models.IntegerField()
+    state = models.BooleanField(null=True)
+    memory_free=models.IntegerField(null=True)
+    pro_consum=models.IntegerField(null=True)
 
 
 
