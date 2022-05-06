@@ -83,9 +83,9 @@ def free_memory(request,id_equipo):
     data=""
     for i in datalist:
         data=+i
-    
+
     data = {
-            
+
              'memoria': data,
             }
     return JsonResponse(data)
@@ -96,6 +96,17 @@ def processor_consumption(request,id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
         result = session.run_ps("wmic cpu get loadpercentage")
+        datasub=result.std_out.decode('UTF-8')
 
-        resultado=result.std_out.decode('UTF-8')
-        print(resultado)
+        datalist = [int(i) for i in datasub.split() if i.isdigit()]
+        data=""
+        for i in datalist:
+            data=+i
+
+
+        
+        data = {
+
+             'procesador': data,
+            }
+        return JsonResponse(data)

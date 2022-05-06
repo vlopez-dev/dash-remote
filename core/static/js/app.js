@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     free_memory();
 
-    setInterval(free_memory, 4000);
+    setInterval(free_memory, 400);
 
 
 
@@ -13,7 +13,6 @@ $(document).ready(function(){
 
 
 
-    
   });
 
 function free_memory(){
@@ -26,10 +25,8 @@ function free_memory(){
        success: function (data) {
 
             $("#memory_free").html(memory_free);
-
  
         }
 
- 
     });
 }
