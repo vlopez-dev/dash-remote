@@ -7,10 +7,5 @@ class Equipoform(forms.ModelForm):
 
     class Meta:
         model=Equipo
-        fields = '__all__'
+        fields = ['name', 'direction']
 
-
-        # labels = {
-        #             'nombre':'Nombre','direccion':'Dirección','telefono':'Teléfono'
-
-        #         }

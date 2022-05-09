@@ -9,8 +9,8 @@ class Equipo(models.Model):
     name = models.CharField( max_length=50)
     direction = models.CharField(max_length=50)
     state = models.BooleanField(null=True)
-    memory_free=models.IntegerField(null=True)
-    pro_consum=models.IntegerField(null=True)
+    memory_free=models.CharField(null=True,max_length=500)
+    pro_consum=models.CharField(null=True,max_length=500)
 
 
 

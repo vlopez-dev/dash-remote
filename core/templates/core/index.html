@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load rest_framework %}
 
 {% block content %}
 <div class="container container_home ">
@@ -26,8 +27,9 @@
                 <td>{{e.name}}</td>
                 <td>{{e.direction}}</td>
                 <td>{{e.state}}</td>
-                <td id="memory_free"></td>
-                <td>{{e.pro_consum}}</td>
+                <td>{{e.memory_free}}/MB</td>
+
+                <td>{{e.pro_consum}}&#37;</td>
 
                 <td>
                      <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a>
