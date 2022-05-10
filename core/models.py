@@ -1,5 +1,6 @@
 from statistics import mode
 from django.db import models
+from django.forms import CharField
 
 # Create your models here.
 
@@ -11,6 +12,8 @@ class Equipo(models.Model):
     state = models.BooleanField(null=True)
     memory_free=models.CharField(null=True,max_length=500)
     pro_consum=models.CharField(null=True,max_length=500)
+    user_admin =models.CharField(null=True,max_length=100)
+    passwordadmin= models.CharField(null=True,max_length=100)
 
 
 

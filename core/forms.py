@@ -4,8 +4,9 @@ from .models import Equipo
 
 
 class Equipoform(forms.ModelForm):
+    passwordadmin = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model=Equipo
-        fields = ['name', 'direction']
+        fields = ['name', 'direction','user_admin','passwordadmin']
 

@@ -1,9 +1,9 @@
 
 $(document).ready(function(){
 
-    free_memory();
+    equipos_data();
 
-    setInterval(free_memory, 400);
+    setInterval(equipos_data, 6000);
 
 
 
@@ -15,18 +15,25 @@ $(document).ready(function(){
 
   });
 
-function free_memory(){
+  function equipos_data() {
     $.ajax({
-        url: "/free_memory",
-         type: 'GET',
-         dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-       destroy: true,
-       success: function (data) {
+       url: "/equipo",
+        type: 'GET',
+        dataType: 'json',
+       contentType: 'application/json; charset=utf-8',
+      destroy: true,
+      success: function (data) {
+           
+           $("#name").html(data.name);
+           $("#direction").html(data.direction);
+           $("#name").html(data.name);
+           $("#state").html(data.state);
+           $("#pro_consum").html(data.pro_consum);
 
-            $("#memory_free").html(memory_free);
- 
-        }
 
-    });
+
+            console.log(data)
+       }
+
+   });
 }

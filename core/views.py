@@ -2,6 +2,7 @@ import threading
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import Response, request
+import requests
 import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
@@ -37,7 +38,6 @@ def add_server(request,id_equipo=0):
         if id_equipo == 0:
             print(id_equipo)
             form = Equipoform(request.POST)
-            print(form)
         else:
             equipo = Equipo.objects.get(pk=id_equipo)
             form = Equipoform(request.POST,instance= equipo)
@@ -128,6 +128,7 @@ def poweroff(request,id_equipo):
 
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
+        # session = winrm.Session(equipo.direction, auth=(equipo.user_admin,equipo.passwordadmin),transport='ntlm')
         session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
         resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
         datasub=resultmemory.std_out.decode('UTF-8')
@@ -143,11 +144,16 @@ def mem_pro_consum(id_equipo):
         procons=""
         for i in datalist:
             procons=+i
+        if memoryfree and procons ==None:
+            state=False
+        else:
+            state=True
         print(memoryfree)
         print(procons)
         ob= Equipo.objects.get(id_equipo=id_equipo)
         ob.memory_free=memoryfree
         ob.pro_consum=procons
+        ob.state=state
         
         ob.save()
         # return render(request,"core/index.html")
@@ -156,9 +162,7 @@ def mem_pro_consum(id_equipo):
 
 
 class EquipoViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+    
     queryset = Equipo.objects.all().order_by('id_equipo')
     serializer_class = EquipoSerializer
 
@@ -167,22 +171,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
         equipo = get_object_or_404(Equipo, pk=id_equipo)
         serializer = EquipoSerializer(equipo)
         print(serializer)
-        return Response({'serializer': serializer, 'equipo': equipo})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return Response({'serializer': serializer, 'equipo': equipo},)
 
 
 
@@ -193,7 +182,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 def get_value():
     while Connected != True:  # Wait for connection
-        time.sleep(3)
+        time.sleep(5)
         ob = Equipo.objects.all()
         for i in ob:
                 mem_pro_consum(i.id_equipo)  
