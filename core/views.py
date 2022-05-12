@@ -84,46 +84,13 @@ def poweroff(request,id_equipo):
 
 
 
-# def free_memory(request,id_equipo):
-#     equipo=Equipo.objects.get(pk=id_equipo)
-#     session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
-#     result = session.run_ps("wmic OS get FreePhysicalMemory")
-#     datasub=result.std_out.decode('UTF-8')
-#     datalist = [int(i) for i in datasub.split() if i.isdigit()]
-#     data=""
-#     for i in datalist:
-#         data=+i
-
-#     data = {
-
-#              'memoria': data,
-#             }
-#     return JsonResponse(data)
 
 
 
-# def processor_consumption(request,id_equipo):
-#         equipo=Equipo.objects.get(pk=id_equipo)
-#         session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
-#         result = session.run_ps("wmic cpu get loadpercentage")
-#         datasub=result.std_out.decode('UTF-8')
+# def test(request):
+#         equipos = Equipo.objects.
 
-#         datalist = [int(i) for i in datasub.split() if i.isdigit()]
-#         data=""
-#         for i in datalist:
-#             data=+i
-
-
-        
-#         data = {
-
-#              'procesador': data,
-#             }
-#         return JsonResponse(data)
-
-
-
-
+#         return render(request,"core/test.html")
 
 
 def mem_pro_consum(id_equipo):
@@ -165,13 +132,14 @@ class EquipoViewSet(viewsets.ModelViewSet):
     
     queryset = Equipo.objects.all().order_by('id_equipo')
     serializer_class = EquipoSerializer
+    template_name = 'core/index.html'
 
     
     def get(self, request, id_equipo):
         equipo = get_object_or_404(Equipo, pk=id_equipo)
         serializer = EquipoSerializer(equipo)
         print(serializer)
-        return Response({'serializer': serializer, 'equipo': equipo},)
+        return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
 
 
 
@@ -193,3 +161,6 @@ def get_value():
 
 sub = threading.Thread(target=get_value)
 sub.start()
+
+
+

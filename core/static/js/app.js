@@ -23,16 +23,12 @@ $(document).ready(function(){
        contentType: 'application/json; charset=utf-8',
       destroy: true,
       success: function (data) {
-           
-           $("#name").html(data.name);
-           $("#direction").html(data.direction);
-           $("#name").html(data.name);
-           $("#state").html(data.state);
-           $("#pro_consum").html(data.pro_consum);
+        console.log(data)
+          //  $("#state").html(data[1].state);
+          //  $("#pro_consum").html(data[2].pro_consum);
+          //  $("#memory_free").html(data[2].memory_free);
 
 
-
-            console.log(data)
        }
 
    });
