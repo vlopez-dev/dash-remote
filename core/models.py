@@ -1,3 +1,4 @@
+from pyexpat import model
 from statistics import mode
 from django.db import models
 from django.forms import CharField
@@ -10,8 +11,6 @@ class Equipo(models.Model):
     name = models.CharField( max_length=50)
     direction = models.CharField(max_length=50)
     state = models.BooleanField(null=True)
-    memory_free=models.CharField(null=True,max_length=500)
-    pro_consum=models.CharField(null=True,max_length=500)
     user_admin =models.CharField(null=True,max_length=100)
     passwordadmin= models.CharField(null=True,max_length=100)
 
@@ -25,3 +24,8 @@ class Equipo(models.Model):
             return self.name
 
 
+class Lectura(models.Model):
+        id_equipo=models.ForeignKey('Equipo', on_delete=models.CASCADE)
+        fecha_lectura = models.DateField()
+        pro_consum=models.CharField(null=True,max_length=500)
+        memory_free=models.CharField(null=True,max_length=500)

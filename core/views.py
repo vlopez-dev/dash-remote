@@ -5,12 +5,13 @@ from requests import Response, request
 import requests
 import winrm
 from django.contrib import messages #import messages
-from .models import Equipo
+from .models import Equipo,Lectura
 import time
 from .forms import Equipoform
 
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
+from .serializers import LecturaSerializer
 
 
 
@@ -87,12 +88,6 @@ def poweroff(request,id_equipo):
 
 
 
-# def test(request):
-#         equipos = Equipo.objects.
-
-#         return render(request,"core/test.html")
-
-
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         # session = winrm.Session(equipo.direction, auth=(equipo.user_admin,equipo.passwordadmin),transport='ntlm')
@@ -117,10 +112,10 @@ def mem_pro_consum(id_equipo):
             state=True
         print(memoryfree)
         print(procons)
-        ob= Equipo.objects.get(id_equipo=id_equipo)
+        ob= Lectura.objects.get(id_equipo=id_equipo)
         ob.memory_free=memoryfree
         ob.pro_consum=procons
-        ob.state=state
+        # ob.state=state
         
         ob.save()
         # return render(request,"core/index.html")
@@ -141,7 +136,18 @@ class EquipoViewSet(viewsets.ModelViewSet):
         print(serializer)
         return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
 
+class LecturaViewSet(viewsets.ModelViewSet):
+    
+    queryset = Lectura.objects.all().order_by('id_equipo')
+    serializer_class = LecturaSerializer
+    template_name = 'core/index.html'
 
+    
+    def get(self, request, id_equipo):
+        lectura = get_object_or_404(Lectura, pk=id_equipo)
+        serializer = LecturaSerializer(lectura)
+        print(serializer)
+        return Response({'serializer': serializer, 'lectura': lectura},template_name='test.html')
 
 
 
@@ -152,8 +158,8 @@ def get_value():
     while Connected != True:  # Wait for connection
         time.sleep(5)
         ob = Equipo.objects.all()
-        for i in ob:
-                mem_pro_consum(i.id_equipo)  
+        # for i in ob:
+        #         mem_pro_consum(i.id_equipo)  
 
 
 

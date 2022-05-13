@@ -1,6 +1,13 @@
-from .models import Equipo
+from .models import Equipo,Lectura
 from rest_framework import serializers
 class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('name','direction','state','memory_free', 'pro_consum')
+        fields = ('id_equipo','name','direction','state')
+        
+        
+        
+class LecturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lectura
+        fields = ('id_equipo','fecha_lectura','pro_consum','memory_free')
