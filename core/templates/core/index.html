@@ -5,8 +5,8 @@
 <div class="container container_home ">
     <div class="row">
         <div class=" col-md-6">
-        <table class="table">
-            <h6>Equipos</h6>
+        <table id="table" class="table" ">
+            <!-- <h6>Equipos</h6>
             <thead class="table-dark">
                 <td>Nombre</td>
                 <td>Dirección</td>
@@ -24,7 +24,7 @@
             {% for e in equipos  %}
             <tbody>
                 <td>{{e.name}}</td>
-
+                
                 <td>{{e.direction}}</td>
                 {% if e.state is True %}
                 <td><img src="https://img.icons8.com/emoji/20/000000/green-circle-emoji.png"/></td>
@@ -32,17 +32,16 @@
                 <td><img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></td>
                 {% endif %}
                 <p>{{equipo.name}}</p>
-                <td>{{e.memory_free}}/MB</td> 
+                <td id="memory_free">{{e.memory_free}}/MB</td> 
 
-                <td>{{e.pro_consum}}&#37;</td>
+                <td id="pro_consum" >{{e.pro_consum}}&#37;</td>
 
-
+                
                 <td>
                     
                      <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a>
                 </td>
                 <td><a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/external-colours-bomsymbols-/25/000000/external-off-digital-design-colors-set-2-colours-bomsymbols-.png"/></a></td>
-
 
             </tbody>
             
@@ -54,7 +53,7 @@
                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
              {% endfor %}
                 </ul>
-            {% endif %}
+            {% endif %} -->
 
           </table>
         </div>

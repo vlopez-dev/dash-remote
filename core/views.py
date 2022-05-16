@@ -7,6 +7,7 @@ import winrm
 from django.contrib import messages #import messages
 from .models import Equipo,Lectura
 import time
+import datetime
 from .forms import Equipoform
 
 from rest_framework import viewsets
@@ -37,7 +38,6 @@ def add_server(request,id_equipo=0):
         return render(request, 'core/agregar_server.html', {'form': form})
     else:
         if id_equipo == 0:
-            print(id_equipo)
             form = Equipoform(request.POST)
         else:
             equipo = Equipo.objects.get(pk=id_equipo)
@@ -112,7 +112,8 @@ def mem_pro_consum(id_equipo):
             state=True
         print(memoryfree)
         print(procons)
-        ob= Lectura.objects.get(id_equipo=id_equipo)
+        print(state)
+        ob= Lectura.objects.create(id_equipo_id=id_equipo,state=state)
         ob.memory_free=memoryfree
         ob.pro_consum=procons
         # ob.state=state
@@ -158,8 +159,8 @@ def get_value():
     while Connected != True:  # Wait for connection
         time.sleep(5)
         ob = Equipo.objects.all()
-        # for i in ob:
-        #         mem_pro_consum(i.id_equipo)  
+        for i in ob:
+                mem_pro_consum(i.id_equipo)  
 
 
 
