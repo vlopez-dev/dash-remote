@@ -7,7 +7,6 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'equipo', views.EquipoViewSet)
-router.register(r'lectura', views.LecturaViewSet)
 
 urlpatterns = [
     path("home/",views.index,name='home'),

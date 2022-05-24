@@ -1,18 +1,18 @@
+import json
 import threading
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import Response, request
 import requests
 import winrm
 from django.contrib import messages #import messages
-from .models import Equipo,Lectura
+from .models import Equipo
 import time
 import datetime
 from .forms import Equipoform
 
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
-from .serializers import LecturaSerializer
 
 
 
@@ -113,7 +113,7 @@ def mem_pro_consum(id_equipo):
         print(memoryfree)
         print(procons)
         print(state)
-        ob= Lectura.objects.create(id_equipo_id=id_equipo,state=state)
+        ob= Equipo.objects.create(id_equipo=id_equipo,state=state)
         ob.memory_free=memoryfree
         ob.pro_consum=procons
         # ob.state=state
@@ -136,21 +136,6 @@ class EquipoViewSet(viewsets.ModelViewSet):
         serializer = EquipoSerializer(equipo)
         print(serializer)
         return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
-
-class LecturaViewSet(viewsets.ModelViewSet):
-    
-    queryset = Lectura.objects.all().order_by('id_equipo')
-    serializer_class = LecturaSerializer
-    template_name = 'core/index.html'
-
-    
-    def get(self, request, id_equipo):
-        lectura = get_object_or_404(Lectura, pk=id_equipo)
-        serializer = LecturaSerializer(lectura)
-        print(serializer)
-        return Response({'serializer': serializer, 'lectura': lectura},template_name='test.html')
-
-
 
 
 

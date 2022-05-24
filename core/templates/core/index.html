@@ -6,7 +6,7 @@
     <div class="row">
         <div class=" col-md-6">
         <table id="table" class="table" ">
-            <!-- <h6>Equipos</h6>
+            <h6>Equipos</h6>
             <thead class="table-dark">
                 <td>Nombre</td>
                 <td>Dirección</td>
@@ -24,7 +24,6 @@
             {% for e in equipos  %}
             <tbody>
                 <td>{{e.name}}</td>
-                
                 <td>{{e.direction}}</td>
                 {% if e.state is True %}
                 <td><img src="https://img.icons8.com/emoji/20/000000/green-circle-emoji.png"/></td>
@@ -53,7 +52,7 @@
                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
              {% endfor %}
                 </ul>
-            {% endif %} -->
+            {% endif %}
 
           </table>
         </div>
