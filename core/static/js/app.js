@@ -1,10 +1,10 @@
 
 $(document).ready(function(){
 
-    equipos_data();
+    reload()
 
-    setInterval(equipos_data, 6000);
 
+     setInterval(reload, 6000);
 
 
 
@@ -15,21 +15,9 @@ $(document).ready(function(){
 
   });
 
-  function equipos_data() {
-    $.ajax({
-       url: "/equipo",
-        type: 'GET',
-        dataType: 'json',
-       contentType: 'application/json; charset=utf-8',
-      destroy: true,
-      success: function (data) {
-        console.log(data)
-          //  $("#state").html(data[1].state);
-          //  $("#pro_consum").html(data[2].pro_consum);
-          //  $("#memory_free").html(data[2].memory_free);
 
-
-       }
-
-   });
+ function reload() {
+  $("#table").load(location.href + " #table");
+  console.log("refrescado")
 }
+

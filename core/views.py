@@ -1,5 +1,6 @@
+import json
 import threading
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import Response, request
 import requests
@@ -7,6 +8,7 @@ import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
 import time
+import datetime
 from .forms import Equipoform
 
 from rest_framework import viewsets
@@ -36,7 +38,6 @@ def add_server(request,id_equipo=0):
         return render(request, 'core/agregar_server.html', {'form': form})
     else:
         if id_equipo == 0:
-            print(id_equipo)
             form = Equipoform(request.POST)
         else:
             equipo = Equipo.objects.get(pk=id_equipo)
@@ -87,16 +88,14 @@ def poweroff(request,id_equipo):
 
 
 
-# def test(request):
-#         equipos = Equipo.objects.
-
-#         return render(request,"core/test.html")
-
-
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
+        # admin = "\'" +equipo.user_admin+"\'"
+        # print(type(admin))
+        admin=equipo.user_admin.format()
+        passw=equipo.passwordadmin.format()
         # session = winrm.Session(equipo.direction, auth=(equipo.user_admin,equipo.passwordadmin),transport='ntlm')
-        session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
+        session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
         resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
         datasub=resultmemory.std_out.decode('UTF-8')
         datalist = [int(i) for i in datasub.split() if i.isdigit()]
@@ -104,7 +103,6 @@ def mem_pro_consum(id_equipo):
         for i in datalist:
             memoryfree=+i
 
-        # proc consum
         resultproc = session.run_ps("wmic cpu get loadpercentage")
         datasub=resultproc.std_out.decode('UTF-8')
         datalist = [int(i) for i in datasub.split() if i.isdigit()]
@@ -117,13 +115,12 @@ def mem_pro_consum(id_equipo):
             state=True
         print(memoryfree)
         print(procons)
-        ob= Equipo.objects.get(id_equipo=id_equipo)
-        ob.memory_free=memoryfree
-        ob.pro_consum=procons
-        ob.state=state
+        print(state)
+        equipo.state=state
+        equipo.memory_free=memoryfree
+        equipo.pro_consum=procons
         
-        ob.save()
-        # return render(request,"core/index.html")
+        equipo.save()
 
 
 
@@ -140,10 +137,6 @@ class EquipoViewSet(viewsets.ModelViewSet):
         serializer = EquipoSerializer(equipo)
         print(serializer)
         return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
-
-
-
-
 
 
 
