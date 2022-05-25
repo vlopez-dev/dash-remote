@@ -13,6 +13,8 @@ urlpatterns = [
     # path("test/",views.test,name='test'),
 
     path('<int:id_equipo>/',views.restart,name='restart'),
+    path('<int:id_equipo>/',views.delete_server,name='delete'),
+
     path('<int:id_equipo>/',views.poweroff,name='poweroff'),
     path("addserver/",views.add_server,name='add_server'),
 

@@ -42,6 +42,8 @@
                      <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a>
                 </td>
                 <td><a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/external-colours-bomsymbols-/25/000000/external-off-digital-design-colors-set-2-colours-bomsymbols-.png"/></a></td>
+                <td><a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/color/25/000000/delete-forever.png"/></a></td>
+
             </tbody>
             
             {% endfor %}

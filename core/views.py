@@ -51,6 +51,10 @@ def add_server(request,id_equipo=0):
 
 
 
+def delete_server(request,id_equipo):
+    equipo = Equipo.objects.get(pk=id_equipo)
+    equipo.delete()
+    return redirect('/home/')
 
 
 
