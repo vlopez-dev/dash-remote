@@ -10,3 +10,8 @@ class Equipoform(forms.ModelForm):
         model=Equipo
         fields = ['name', 'direction','user_admin','passwordadmin']
 
+
+
+
+class Mensajeform(forms.ModelForm):
+    mensaje= forms.CharField(max_length=500)

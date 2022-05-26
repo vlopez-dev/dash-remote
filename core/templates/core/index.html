@@ -2,23 +2,36 @@
 {% load rest_framework %}
 
 {% block content %}
-<div class="container container_home ">
+<div class="container container_home " >
 
-            <div class="row">
+            <div class="row"id="valores">
+
                 {% for e in equipos  %}
 
-                <div class="col-md-4">
+                <div class="col-md-3">
+
                 <div class="card-valores">
+                    {% if e.state is True %}
+
+                  <span>  <img src="https://img.icons8.com/emoji/20/000000/green-circle-emoji.png"/></span>
+                  {% else %}
+                  <span> <img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></span>
+                  {% endif %}
+                
+
+
               <div >
-                  <h3>{{e.name}}</h3>
 
-                  <h3>{{e.direction}}</h3>
-                  <h3>Memory</h3>
-                    <p>{{e.memory_free}}</p>
-                    <h3>Procesador</h3>
-                    <p>{{e.pro_consum}}</p>
+                  <h4>{{e.name}}</h4>
 
-                      <img src="" alt="">
+                  <p>Dirección:{{e.direction}}</p>
+                    <p id="memory_free">Memoria disponible:{{e.memory_free}}</p>
+                    <p >Procesador:{{e.pro_consum}}&#37</p>
+
+                    <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
+                    <a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/shutdown.png"/></a>
+                    <a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/waste.png"/></a>
+
                     </div>
                   </div>
 

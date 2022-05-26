@@ -128,6 +128,14 @@ def mem_pro_consum(id_equipo):
 
 
 
+def send_message(request,id_equipo):
+    equipo = Equipo.objects.get(ṕk=id_equipo)
+    admin=equipo.user_admin.format()
+    passw=equipo.passwordadmin.format()
+    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+    # result_send =  session.run_ps("invoke-command -computername ncomp1 -scriptblock {msg * "Test"})
+
+
 
 class EquipoViewSet(viewsets.ModelViewSet):
     
