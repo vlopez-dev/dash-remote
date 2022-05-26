@@ -3,11 +3,37 @@
 
 {% block content %}
 <div class="container container_home ">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-        <table id="table" class="table" ">
-            <h6>Equipos</h6>
+
+            <div class="row">
+                {% for e in equipos  %}
+
+                <div class="col-md-4">
+                <div class="card-valores">
+              <div >
+                  <h3>{{e.name}}</h3>
+
+                  <h3>{{e.direction}}</h3>
+                  <h3>Memory</h3>
+                    <p>{{e.memory_free}}</p>
+                    <h3>Procesador</h3>
+                    <p>{{e.pro_consum}}</p>
+
+                      <img src="" alt="">
+                    </div>
+                  </div>
+
+              </div>
+              {% endfor %}
+
+        </div>
+        </div>
+
+
+
+<!-- 
+
+
+
             <thead class="table-dark">
                 <td>Nombre</td>
                 <td>Dirección</td>
@@ -61,8 +87,8 @@
         <div class="col-md-2"></div>
 
 </div>
-</div>
-
+</div> -->
+ 
 
 
 
