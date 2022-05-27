@@ -9,7 +9,7 @@ from django.contrib import messages #import messages
 from .models import Equipo
 import time
 import datetime
-from .forms import Equipoform
+from .forms import Equipoform, Mensajeform
 
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
@@ -54,7 +54,9 @@ def add_server(request,id_equipo=0):
 def delete_server(request,id_equipo):
     equipo = Equipo.objects.get(pk=id_equipo)
     equipo.delete()
-    return redirect('/home/')
+    messages.add_message(request, messages.INFO, 'Eliminado correctamente!.')
+
+    return redirect('/home')
 
 
 
@@ -71,13 +73,14 @@ def restart(request,id_equipo):
     result=result.std_out
     print("estoy en reiniciando")
     messages.success(request, "Equipo reiniciado." )
-    return render(request,"core/index.html")
+    return redirect('/home')
 
 
 
 
 
 def poweroff(request,id_equipo):
+    print("estoy apagando el equipo......")
     equipo=Equipo.objects.get(pk=id_equipo)
     print("estoy en poweroff")
     session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
@@ -85,7 +88,8 @@ def poweroff(request,id_equipo):
     result=result.std_out
     messages.success(request, "Equipo Apagado." )
 
-    return render(request,"core/index.html")
+    return redirect('/home')
+
 
 
 
@@ -129,6 +133,25 @@ def mem_pro_consum(id_equipo):
 
 
 def send_message(request,id_equipo):
+    if request.method == "GET":
+        if id_equipo == 0 :
+            form = Mensajeform()
+        else:
+            equipo = Equipo.objects.get(pk=id_equipo)
+
+            form = Equipoform(instance=equipo)
+        return render(request, 'core/agregar_server.html', {'form': form})
+    else:
+        if id_equipo == 0:
+            form = Equipoform(request.POST)
+        else:
+            equipo = Equipo.objects.get(pk=id_equipo)
+            form = Equipoform(request.POST,instance= equipo)
+    if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO, 'Agregado correctamente!.')
+
+
     equipo = Equipo.objects.get(ṕk=id_equipo)
     admin=equipo.user_admin.format()
     passw=equipo.passwordadmin.format()
