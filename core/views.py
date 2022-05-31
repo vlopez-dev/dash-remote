@@ -134,24 +134,7 @@ def mem_pro_consum(id_equipo):
 
 
 def send_message(request,id_equipo):
-    if request.method == "GET":
-        if id_equipo == 0 :
-            form = Mensajeform()
-        else:
-            equipo = Equipo.objects.get(pk=id_equipo)
-
-            form = Equipoform(instance=equipo)
-        return render(request, 'core/agregar_server.html', {'form': form})
-    else:
-        if id_equipo == 0:
-            form = Equipoform(request.POST)
-        else:
-            equipo = Equipo.objects.get(pk=id_equipo)
-            form = Equipoform(request.POST,instance= equipo)
-    if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.INFO, 'Agregado correctamente!.')
-
+   
 
     equipo = Equipo.objects.get(ṕk=id_equipo)
     admin=equipo.user_admin.format()
