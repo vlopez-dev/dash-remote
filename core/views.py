@@ -9,7 +9,7 @@ from django.contrib import messages #import messages
 from .models import Equipo
 import time
 import datetime
-from .forms import Equipoform
+from .forms import Equipoform, Mensajeform
 
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
@@ -54,7 +54,9 @@ def add_server(request,id_equipo=0):
 def delete_server(request,id_equipo):
     equipo = Equipo.objects.get(pk=id_equipo)
     equipo.delete()
-    return redirect('/home/')
+    messages.add_message(request, messages.INFO, 'Eliminado correctamente!.')
+
+    return redirect('/home')
 
 
 
@@ -66,26 +68,32 @@ def delete_server(request,id_equipo):
 
 def restart(request,id_equipo):
     equipo= Equipo.objects.get(pk=id_equipo)
-    session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
+    admin=equipo.user_admin.format()
+    passw=equipo.passwordadmin.format()
+    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
     print("estoy en reiniciando")
     messages.success(request, "Equipo reiniciado." )
-    return render(request,"core/index.html")
+    return redirect('/home')
 
 
 
 
 
 def poweroff(request,id_equipo):
+    print("estoy apagando el equipo......")
     equipo=Equipo.objects.get(pk=id_equipo)
+    admin=equipo.user_admin.format()
+    passw=equipo.passwordadmin.format()
     print("estoy en poweroff")
-    session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
+    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
     messages.success(request, "Equipo Apagado." )
 
-    return render(request,"core/index.html")
+    return redirect('/home')
+
 
 
 
@@ -94,11 +102,8 @@ def poweroff(request,id_equipo):
 
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
-        # admin = "\'" +equipo.user_admin+"\'"
-        # print(type(admin))
         admin=equipo.user_admin.format()
         passw=equipo.passwordadmin.format()
-        # session = winrm.Session(equipo.direction, auth=(equipo.user_admin,equipo.passwordadmin),transport='ntlm')
         session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
         resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
         datasub=resultmemory.std_out.decode('UTF-8')
@@ -129,6 +134,8 @@ def mem_pro_consum(id_equipo):
 
 
 def send_message(request,id_equipo):
+   
+
     equipo = Equipo.objects.get(ṕk=id_equipo)
     admin=equipo.user_admin.format()
     passw=equipo.passwordadmin.format()

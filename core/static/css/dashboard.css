@@ -141,6 +141,10 @@ body {
   padding: 25px;
 
 }
+.forms_st label{
+  color: white;
+}
+
 
 .table, th{
   text-align: center !important;
@@ -261,7 +265,7 @@ body {
   } */
 
   .container_home{
-    margin-top: 80px;
+    /* margin-top: 80px; */
   }
 
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -290,4 +294,10 @@ body {
 
 .navbar-toggler-space{
   right: 5rem !important;
+}
+
+
+
+.form-colors{
+  color: white;
 }
