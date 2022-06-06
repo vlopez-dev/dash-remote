@@ -1,6 +1,7 @@
+from distutils.command.clean import clean
 import json
 import threading
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import Response, request
 import requests
@@ -28,6 +29,7 @@ def index(request):
 
 
 def add_server(request,id_equipo=0):
+    print(request.method)
     if request.method == "GET":
         if id_equipo == 0 :
             form = Equipoform()
@@ -98,11 +100,8 @@ def poweroff(request,id_equipo):
 
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
-        # admin = "\'" +equipo.user_admin+"\'"
-        # print(type(admin))
         admin=equipo.user_admin.format()
         passw=equipo.passwordadmin.format()
-        # session = winrm.Session(equipo.direction, auth=(equipo.user_admin,equipo.passwordadmin),transport='ntlm')
         session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
         resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
         datasub=resultmemory.std_out.decode('UTF-8')
@@ -121,52 +120,43 @@ def mem_pro_consum(id_equipo):
             state=False
         else:
             state=True
-        print(memoryfree)
         print(procons)
         print(state)
         equipo.state=state
-        equipo.memory_free=memoryfree
+        roundgb=memoryfree/1000/1024
+        mem_free_round=round(roundgb)
+        print(mem_free_round)
+        equipo.memory_free=mem_free_round
         equipo.pro_consum=procons
-        
         equipo.save()
 
 
 
 def send_message(request,id_equipo):
-    if request.method == "GET":
-        if id_equipo == 0 :
+        form = Mensajeform()
+
+        if request.method == "GET":
             form = Mensajeform()
+
+            return render(request, 'core/send.html', {'form': form})
         else:
-            equipo = Equipo.objects.get(pk=id_equipo)
-
-            form = Equipoform(instance=equipo)
-        return render(request, 'core/agregar_server.html', {'form': form})
-    else:
-        if id_equipo == 0:
-            form = Equipoform(request.POST)
-        else:
-            equipo = Equipo.objects.get(pk=id_equipo)
-            form = Equipoform(request.POST,instance= equipo)
-    if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.INFO, 'Agregado correctamente!.')
+            form = Mensajeform(request.POST)
+            
 
 
-    equipo = Equipo.objects.get(ṕk=id_equipo)
-    admin=equipo.user_admin.format()
-    passw=equipo.passwordadmin.format()
-    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-    # result_send =  session.run_ps("invoke-command -computername ncomp1 -scriptblock {msg * "Test"})
+        return redirect('/home/')
+
+
 
 
 
 class EquipoViewSet(viewsets.ModelViewSet):
-    
+
     queryset = Equipo.objects.all().order_by('id_equipo')
     serializer_class = EquipoSerializer
     template_name = 'core/index.html'
 
-    
+
     def get(self, request, id_equipo):
         equipo = get_object_or_404(Equipo, pk=id_equipo)
         serializer = EquipoSerializer(equipo)
@@ -178,7 +168,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 def get_value():
     while Connected != True:  # Wait for connection
-        time.sleep(5)
+        time.sleep(150)
         ob = Equipo.objects.all()
         for i in ob:
                 mem_pro_consum(i.id_equipo)  

@@ -8,7 +8,7 @@
 
                 {% for e in equipos  %}
 
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                 <div class="card-valores">
                     {% if e.state is True %}
@@ -25,13 +25,15 @@
                   <h4>{{e.name}}</h4>
 
                   <p>Dirección:{{e.direction}}</p>
-                    <p id="memory_free">Memoria disponible:{{e.memory_free}}</p>
+                    <p id="memory_free">Memoria disponible:{{e.memory_free}}GB</p>
                     <p >Procesador:{{e.pro_consum}}&#37</p>
 
                     <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
                     <a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/shutdown.png"/></a>
                     <a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/waste.png"/></a>
-
+                    <a href="{% url 'send' e.id_equipo %}">
+                        <img src="https://img.icons8.com/nolan/45/new-message.png"/>
+                      </a>
                     </div>
                   </div>
 

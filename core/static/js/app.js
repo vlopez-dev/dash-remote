@@ -4,7 +4,7 @@ $(document).ready(function(){
     reload()
 
 
-     setInterval(reload, 6000);
+     setInterval(reload, 100000);
 
 
 

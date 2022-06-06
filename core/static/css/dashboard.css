@@ -43,6 +43,7 @@ body {
 .sidebar {
   position: fixed;
   top: 0;
+  background-color: #170055 !important;
   /* rtl:raw:
   right: 0;
   */
@@ -71,7 +72,7 @@ body {
 
 .sidebar .nav-link {
   font-weight: 500;
-  color: var(--fuentes);
+  color: white;
 
 }
 
@@ -132,13 +133,16 @@ body {
 }
 
 
-
+#sidebarMenu{
+  background-color: #170055 !important;
+}
 
 
 .forms_st {
   border-radius: 5px;
-  border: 1px solid gray ;
+  border: 1px solid #AE00FB !important;
   padding: 25px;
+  text-align: center;
 
 }
 .forms_st label{
@@ -154,13 +158,13 @@ body {
 
 
 .table>:not(caption)>*>*{
-  inset 0 0 0 9999px var(--bs-table-accent-bg)
+  inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
 
 .titulos{
   margin-top: 25px;
   text-align: center;
-  color: var(--fuentes);
+  color: white;
 
 }
 

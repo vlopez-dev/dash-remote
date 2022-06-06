@@ -13,5 +13,5 @@ class Equipoform(forms.ModelForm):
 
 
 
-class Mensajeform(forms.ModelForm):
+class Mensajeform(forms.Form):
     mensaje= forms.CharField(max_length=500)
