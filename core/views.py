@@ -70,7 +70,9 @@ def delete_server(request,id_equipo):
 
 def restart(request,id_equipo):
     equipo= Equipo.objects.get(pk=id_equipo)
-    session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
+    admin=equipo.user_admin.format()
+    passw=equipo.passwordadmin.format()
+    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
     print("estoy en reiniciando")
@@ -84,8 +86,10 @@ def restart(request,id_equipo):
 def poweroff(request,id_equipo):
     print("estoy apagando el equipo......")
     equipo=Equipo.objects.get(pk=id_equipo)
+    admin=equipo.user_admin.format()
+    passw=equipo.passwordadmin.format()
     print("estoy en poweroff")
-    session = winrm.Session(equipo.direction, auth=('administrador','AMEC4m3c1962'),transport='ntlm')
+    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
     messages.success(request, "Equipo Apagado." )
@@ -133,6 +137,7 @@ def mem_pro_consum(id_equipo):
 
 
 def send_message(request,id_equipo):
+<<<<<<< HEAD
         form = Mensajeform()
 
         if request.method == "GET":
@@ -146,6 +151,9 @@ def send_message(request,id_equipo):
 
         return redirect('/home/')
 
+=======
+   
+>>>>>>> b9ae797bafff0f433f6ef57189b44c5eba2a23da
 
 
 
