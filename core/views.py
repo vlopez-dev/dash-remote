@@ -137,23 +137,14 @@ def mem_pro_consum(id_equipo):
 
 
 def send_message(request,id_equipo):
-<<<<<<< HEAD
         form = Mensajeform()
-
         if request.method == "GET":
             form = Mensajeform()
-
-            return render(request, 'core/send.html', {'form': form})
-        else:
-            form = Mensajeform(request.POST)
             
 
+            return render(request, 'core/send.html', {'form': form})
+      
 
-        return redirect('/home/')
-
-=======
-   
->>>>>>> b9ae797bafff0f433f6ef57189b44c5eba2a23da
 
 
 

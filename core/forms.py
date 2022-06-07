@@ -14,4 +14,4 @@ class Equipoform(forms.ModelForm):
 
 
 class Mensajeform(forms.Form):
-    mensaje= forms.CharField(max_length=500)
+    mensaje= forms.CharField(max_length=500,widget=forms.Textarea(attrs={'name':'body', 'rows':10, 'cols':50}))
