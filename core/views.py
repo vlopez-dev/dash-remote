@@ -14,6 +14,7 @@ from .forms import Equipoform, Mensajeform
 
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
+import re
 
 
 
@@ -140,14 +141,32 @@ def send_message(request,id_equipo):
         form = Mensajeform()
         if request.method == "GET":
             form = Mensajeform()
-            
-
             return render(request, 'core/send.html', {'form': form})
-      
+        else:
+            if request.method=="POST":
+                equipo= Equipo.objects.get(pk=id_equipo)
+                admin=equipo.user_admin.format()
+                passw=equipo.passwordadmin.format()
+                ms =("{ \"Test\"}")
+                print(ms)
+                # comando=("invoke-command -computername ServerHyper-v.amec.com.uy -scriptblock" {msg * "Test"}")
+                
+                session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+                send = session.run_ps()
+                # print(send)
+                return render(request, 'core/send.html', {'form': form})
 
 
 
 
+# def send(id_equipo):
+#     equipo= Equipo.objects.get(pk=id_equipo)
+#     admin=equipo.user_admin.format()
+#     passw=equipo.passwordadmin.format()
+#     session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+#     send = session.run_ps("invoke-command -computername ncomp20083 -scriptblock \{msg * \"Test\"}")
+#     print(send)
+#     return redirect('/home')
 
 class EquipoViewSet(viewsets.ModelViewSet):
 

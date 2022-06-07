@@ -305,3 +305,8 @@ body {
 .form-colors{
   color: white;
 }
+
+.form-message textarea{
+  background-color: #170055;
+  color: white;
+}
