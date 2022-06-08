@@ -144,16 +144,19 @@ def send_message(request,id_equipo):
             return render(request, 'core/send.html', {'form': form})
         else:
             if request.method=="POST":
+
+                form = Mensajeform(request.POST)
+                mensaje= request.POST.get('mensaje')
+
                 equipo= Equipo.objects.get(pk=id_equipo)
                 admin=equipo.user_admin.format()
                 passw=equipo.passwordadmin.format()
-                ms =("{ \"Test\"}")
-                print(ms)
-                # comando=("invoke-command -computername ServerHyper-v.amec.com.uy -scriptblock" {msg * "Test"}")
+
                 
                 session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-                send = session.run_ps()
-                # print(send)
+                print("MSG * /Server:{} {}".format(equipo.direction,mensaje))
+                send = session.run_ps('MSG * /Server:{} {}'.format(equipo.direction,mensaje))
+                print(send)
                 return render(request, 'core/send.html', {'form': form})
 
 
@@ -186,7 +189,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 def get_value():
     while Connected != True:  # Wait for connection
-        time.sleep(150)
+        time.sleep(15)
         ob = Equipo.objects.all()
         for i in ob:
                 mem_pro_consum(i.id_equipo)  
