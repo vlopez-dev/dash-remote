@@ -202,6 +202,9 @@ body {
   background-color: #170055;
   color: whitesmoke;
   border: 2px solid #AE00FB;
+  box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
+-webkit-box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
+-moz-box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
   /* outline: 1px solid red; */
 }
 
@@ -274,8 +277,8 @@ body {
 
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: #668a27;
-    border-color: #668a27; /*set the color you want here*/
+    background-color: #AE00FB;
+    border-color: #AE00FB; /*set the color you want here*/
 }
 
 

@@ -151,8 +151,6 @@ def send_message(request,id_equipo):
                 equipo= Equipo.objects.get(pk=id_equipo)
                 admin=equipo.user_admin.format()
                 passw=equipo.passwordadmin.format()
-
-                
                 session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
                 print("MSG * /Server:{} {}".format(equipo.direction,mensaje))
                 send = session.run_ps('MSG * /Server:{} {}'.format(equipo.direction,mensaje))
@@ -162,14 +160,6 @@ def send_message(request,id_equipo):
 
 
 
-# def send(id_equipo):
-#     equipo= Equipo.objects.get(pk=id_equipo)
-#     admin=equipo.user_admin.format()
-#     passw=equipo.passwordadmin.format()
-#     session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-#     send = session.run_ps("invoke-command -computername ncomp20083 -scriptblock \{msg * \"Test\"}")
-#     print(send)
-#     return redirect('/home')
 
 class EquipoViewSet(viewsets.ModelViewSet):
 

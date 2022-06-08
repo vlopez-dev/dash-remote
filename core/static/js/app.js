@@ -12,9 +12,14 @@ $(document).ready(function(){
 
 
 
-
   });
+  
+  function modal(){
 
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+  }
 
  function reload() {
   $( "#valores" ).load(window.location.href + " #valores" );
