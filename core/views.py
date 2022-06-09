@@ -15,7 +15,9 @@ from .forms import Equipoform, Mensajeform
 from rest_framework import viewsets
 from .serializers import EquipoSerializer
 import re
+from notifypy import Notify
 
+import sweetify
 
 
 
@@ -47,7 +49,8 @@ def add_server(request,id_equipo=0):
             form = Equipoform(request.POST,instance= equipo)
     if form.is_valid():
             form.save()
-            messages.add_message(request, messages.INFO, 'Agregado correctamente!.')
+            sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
+
 
     return redirect('/home/')
 
@@ -57,7 +60,7 @@ def add_server(request,id_equipo=0):
 def delete_server(request,id_equipo):
     equipo = Equipo.objects.get(pk=id_equipo)
     equipo.delete()
-    messages.add_message(request, messages.INFO, 'Eliminado correctamente!.')
+    sweetify.success(request, 'Exito', text='Eliminado Correctamente', persistent='Aceptar')
 
     return redirect('/home')
 
@@ -76,8 +79,7 @@ def restart(request,id_equipo):
     session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
-    print("estoy en reiniciando")
-    messages.success(request, "Equipo reiniciado." )
+    sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
     return redirect('/home')
 
 
@@ -93,7 +95,7 @@ def poweroff(request,id_equipo):
     session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
     result = session.run_ps("ping 192.168.1.228")
     result=result.std_out
-    messages.success(request, "Equipo Apagado." )
+    sweetify.success(request, 'Exito', text='Apagado Correctamente', persistent='Aceptar')
 
     return redirect('/home')
 
@@ -107,33 +109,39 @@ def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         admin=equipo.user_admin.format()
         passw=equipo.passwordadmin.format()
-        session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-        resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
-        datasub=resultmemory.std_out.decode('UTF-8')
-        datalist = [int(i) for i in datasub.split() if i.isdigit()]
-        memoryfree=""
-        for i in datalist:
-            memoryfree=+i
+        try:
+            session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+            resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
+            datasub=resultmemory.std_out.decode('UTF-8')
+            datalist = [int(i) for i in datasub.split() if i.isdigit()]
+            memoryfree=""
+            for i in datalist:
+                    memoryfree=+i
 
-        resultproc = session.run_ps("wmic cpu get loadpercentage")
-        datasub=resultproc.std_out.decode('UTF-8')
-        datalist = [int(i) for i in datasub.split() if i.isdigit()]
-        procons=""
-        for i in datalist:
-            procons=+i
-        if memoryfree and procons ==None:
-            state=False
-        else:
-            state=True
-        print(procons)
-        print(state)
-        equipo.state=state
-        roundgb=memoryfree/1000/1024
-        mem_free_round=round(roundgb)
-        print(mem_free_round)
-        equipo.memory_free=mem_free_round
-        equipo.pro_consum=procons
-        equipo.save()
+            resultproc = session.run_ps("wmic cpu get loadpercentage")
+            datasub=resultproc.std_out.decode('UTF-8')
+            datalist = [int(i) for i in datasub.split() if i.isdigit()]
+            procons=""
+            for i in datalist:
+                    procons=+i
+            if memoryfree and procons ==None:
+                    state=False
+            else:
+                    state=True
+            print(procons)
+            print(state)
+            equipo.state=state
+            roundgb=memoryfree/1000/1024
+            mem_free_round=round(roundgb)
+            print(mem_free_round)
+            equipo.memory_free=mem_free_round
+            equipo.pro_consum=procons
+            equipo.save()
+        except NameError:
+            print("error de la conexion")
+        except:
+            print("otro error")
+            send_email()
 
 
 
@@ -154,11 +162,16 @@ def send_message(request,id_equipo):
                 session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
                 print("MSG * /Server:{} {}".format(equipo.direction,mensaje))
                 send = session.run_ps('MSG * /Server:{} {}'.format(equipo.direction,mensaje))
-                print(send)
-                return render(request, 'core/send.html', {'form': form})
+                sweetify.success(request, 'Exito', text='Mensaje enviado correctamente', persistent='Aceptar')
+            return redirect('/home')
 
 
+                # return render(request, 'core/send.html', {'form': form})
 
+
+def send_email(request):
+    print("enviando mail")
+    return redirect('/home')
 
 
 class EquipoViewSet(viewsets.ModelViewSet):

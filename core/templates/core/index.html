@@ -17,22 +17,25 @@
                   {% else %}
                   <span> <img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></span>
                   {% endif %}
-                
+
 
 
               <div >
+                <form method="POST">
+                  {% csrf_token %} 
 
                   <h4>{{e.name}}</h4>
 
                   <p id="memory_free">Memoria disponible:{{e.memory_free}}GB</p>
-                    <p >Procesador:{{e.pro_consum}}&#37</p>
-                    <a href="{% url 'restart' e.id_equipo %} "> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
-                    
+                    <p ><img src="https://img.icons8.com/nolan/30/processor.png"/>Procesador:{{e.pro_consum}}&#37</p>
+                    <a   href="{% url 'restart' e.id_equipo %} "> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
+
                     <a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/shutdown.png"/></a>
                     <a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/waste.png"/></a>
                     <a href="{% url 'sendmessage' e.id_equipo %}">
                         <img src="https://img.icons8.com/nolan/45/new-message.png"/>
                       </a>
+                    </form>
                     </div>
                   </div>
 

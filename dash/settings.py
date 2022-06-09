@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap5',
     'rest_framework',
+    'sweetify'
+
 
 
 ]
@@ -136,3 +138,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
 }
+
+
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
