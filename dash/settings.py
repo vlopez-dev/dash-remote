@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap5',
     'rest_framework',
-    'sweetify'
+    'sweetify',
+    'corsheaders'
 
 
 

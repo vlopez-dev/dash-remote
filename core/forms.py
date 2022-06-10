@@ -10,7 +10,10 @@ class Equipoform(forms.ModelForm):
         model=Equipo
         fields = ['name', 'direction','user_admin','passwordadmin']
 
-
+  
+        labels = {
+            'name':'Nombre','direction':'Direccion Ip','user_admin':'Administrador','passwordadmin':'Password',
+        }
 
 
 class Mensajeform(forms.Form):
