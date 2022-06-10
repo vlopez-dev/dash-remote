@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 
  function reload() {
-  $("#table").load(location.href + " #table");
+  $( "#valores" ).load(window.location.href + " #valores" );
   console.log("refrescado")
 }
 

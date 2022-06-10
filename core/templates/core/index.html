@@ -2,12 +2,51 @@
 {% load rest_framework %}
 
 {% block content %}
-<div class="container container_home ">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-        <table id="table" class="table" ">
-            <h6>Equipos</h6>
+<div class="container container_home " >
+
+            <div class="row"id="valores">
+
+                {% for e in equipos  %}
+
+                <div class="col-md-3">
+
+                <div class="card-valores">
+                    {% if e.state is True %}
+
+                  <span>  <img src="https://img.icons8.com/emoji/20/000000/green-circle-emoji.png"/></span>
+                  {% else %}
+                  <span> <img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></span>
+                  {% endif %}
+                
+
+
+              <div >
+
+                  <h4>{{e.name}}</h4>
+
+                  <p>Dirección:{{e.direction}}</p>
+                    <p id="memory_free">Memoria disponible:{{e.memory_free}}</p>
+                    <p >Procesador:{{e.pro_consum}}&#37</p>
+
+                    <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
+                    <a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/shutdown.png"/></a>
+                    <a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/waste.png"/></a>
+
+                    </div>
+                  </div>
+
+              </div>
+              {% endfor %}
+
+        </div>
+        </div>
+
+
+
+<!-- 
+
+
+
             <thead class="table-dark">
                 <td>Nombre</td>
                 <td>Dirección</td>
@@ -42,6 +81,8 @@
                      <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a>
                 </td>
                 <td><a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/external-colours-bomsymbols-/25/000000/external-off-digital-design-colors-set-2-colours-bomsymbols-.png"/></a></td>
+                <td><a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/color/25/000000/delete-forever.png"/></a></td>
+
             </tbody>
             
             {% endfor %}
@@ -59,8 +100,8 @@
         <div class="col-md-2"></div>
 
 </div>
-</div>
-
+</div> -->
+ 
 
 
 

@@ -9,6 +9,7 @@ root{
   --fuentes:#444444;
   --button:#83B232;
   --bs-table-bg:#83B232 !important;
+  --body-color:#170055;
 
 }
 
@@ -20,6 +21,7 @@ root{
 
 body {
   font-size: .875rem;
+  background-color: #170055;
   }
 
 
@@ -96,7 +98,7 @@ body {
  * Navbar
  */
   .nav-color{
-    background-color: #0060A2 !important;
+    background-color: transparent !important;
   }
 
 .navbar-brand {
@@ -139,6 +141,10 @@ body {
   padding: 25px;
 
 }
+.forms_st label{
+  color: white;
+}
+
 
 .table, th{
   text-align: center !important;
@@ -189,7 +195,15 @@ body {
   border-color: rgba(238, 237, 237, 0.22);
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
   text-align: center;
+  background-color: #170055;
+  color: whitesmoke;
+  border: 2px solid #AE00FB;
   /* outline: 1px solid red; */
+}
+
+.card-valores span{
+  position: relative;
+  float: left;
 }
 
 .shadow-form{
@@ -204,7 +218,7 @@ body {
 
 
 
-
+/* 
 .video_login {
   height: 100vh;
   width: 100vw;
@@ -233,13 +247,13 @@ body {
 
   .container_login{
     margin-top: 150px;
-  }
+  } */
 
   .table-dark{
     --bs-table-bg:#83B232!important;
   }
 
-
+/* 
 
   .form_login{
     padding: 64px;
@@ -248,10 +262,10 @@ body {
   .btn-color{
     background-color: #83B232;
     border-color: #83B232;
-  }
+  } */
 
   .container_home{
-    margin-top: 80px;
+    /* margin-top: 80px; */
   }
 
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -280,4 +294,10 @@ body {
 
 .navbar-toggler-space{
   right: 5rem !important;
+}
+
+
+
+.form-colors{
+  color: white;
 }
