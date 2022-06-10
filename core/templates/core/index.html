@@ -8,7 +8,7 @@
 
                 {% for e in equipos  %}
 
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                 <div class="card-valores">
                     {% if e.state is True %}
@@ -17,21 +17,25 @@
                   {% else %}
                   <span> <img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></span>
                   {% endif %}
-                
+
 
 
               <div >
+                <form method="POST">
+                  {% csrf_token %} 
 
                   <h4>{{e.name}}</h4>
 
-                  <p>Dirección:{{e.direction}}</p>
-                    <p id="memory_free">Memoria disponible:{{e.memory_free}}</p>
-                    <p >Procesador:{{e.pro_consum}}&#37</p>
+                  <p id="memory_free">Memoria disponible:{{e.memory_free}}GB</p>
+                    <p ><img src="https://img.icons8.com/nolan/30/processor.png"/>Procesador:{{e.pro_consum}}&#37</p>
+                    <a   href="{% url 'restart' e.id_equipo %} "> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
 
-                    <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/nolan/45/restart.png"/></a>
                     <a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/shutdown.png"/></a>
                     <a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/nolan/45/waste.png"/></a>
-
+                    <a href="{% url 'sendmessage' e.id_equipo %}">
+                        <img src="https://img.icons8.com/nolan/45/new-message.png"/>
+                      </a>
+                    </form>
                     </div>
                   </div>
 
@@ -41,67 +45,6 @@
         </div>
         </div>
 
-
-
-<!-- 
-
-
-
-            <thead class="table-dark">
-                <td>Nombre</td>
-                <td>Dirección</td>
-                <td>Estado</td>
-                <td>Memoria</td>
-                <td>Procesador</td>
-                <td>Reinicio</td>
-                <td>Apagado</td>
-
-
-
-
-
-            </thead>
-            {% for e in equipos  %}
-            <tbody>
-                <td>{{e.name}}</td>
-                <td>{{e.direction}}</td>
-                {% if e.state is True %}
-                <td><img src="https://img.icons8.com/emoji/20/000000/green-circle-emoji.png"/></td>
-                {% else %}
-                <td><img src="https://img.icons8.com/emoji/20/000000/red-circle-emoji.png"/></td>
-                {% endif %}
-                <p>{{equipo.name}}</p>
-                <td id="memory_free">{{e.memory_free}}/MB</td> 
-
-                <td id="pro_consum" >{{e.pro_consum}}&#37;</td>
-
-                
-                <td>
-                    
-                     <a href="{% url 'restart' e.id_equipo %}"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-reset-basic-ui-elements-2.2-sbts2018-flat-sbts2018.png"/></a>
-                </td>
-                <td><a href="{% url 'poweroff' e.id_equipo %}"><img src="https://img.icons8.com/external-colours-bomsymbols-/25/000000/external-off-digital-design-colors-set-2-colours-bomsymbols-.png"/></a></td>
-                <td><a href="{% url 'delete' e.id_equipo %}"><img src="https://img.icons8.com/color/25/000000/delete-forever.png"/></a></td>
-
-            </tbody>
-            
-            {% endfor %}
-
-            {% if messages %}
-                <ul class="messages">
-            {% for message in messages %}
-                 <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-             {% endfor %}
-                </ul>
-            {% endif %}
-
-          </table>
-        </div>
-        <div class="col-md-2"></div>
-
-</div>
-</div> -->
- 
 
 
 

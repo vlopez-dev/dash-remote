@@ -1,1 +1,37 @@
 {% extends 'core/base.html' %}
+{% load bootstrap5 %}
+
+{% load crispy_forms_tags %}
+{{form.mobile|as_crispy_field}}
+{% block content %}
+
+<div class="container-sm">
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6  ">
+            <h5 class="titulos">Mensaje</h5>
+            <form action=""method="POST"autocomplete="off"class="justify-content-center forms_st shadow-form form-message ">
+              <div class="mb-4">
+                {% csrf_token %} 
+
+                {{ form.mensaje|as_crispy_field }}
+
+              </div>
+             
+              <div class="d-grid gap-2 d-md-block">
+
+                  
+                  <button onclick="test()" type="submit" class="btn btn-primary btn-color">
+                    <a href=""></a>
+                    Enviar</button>
+
+
+              </div>
+            </form>
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+</div>
+{% endblock content %}

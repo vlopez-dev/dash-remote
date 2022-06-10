@@ -10,8 +10,11 @@ class Equipoform(forms.ModelForm):
         model=Equipo
         fields = ['name', 'direction','user_admin','passwordadmin']
 
+  
+        labels = {
+            'name':'Nombre','direction':'Direccion Ip','user_admin':'Administrador','passwordadmin':'Password',
+        }
 
 
-
-class Mensajeform(forms.ModelForm):
-    mensaje= forms.CharField(max_length=500)
+class Mensajeform(forms.Form):
+    mensaje= forms.CharField(max_length=500,widget=forms.Textarea(attrs={'name':'body', 'rows':10, 'cols':50}))

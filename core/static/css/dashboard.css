@@ -43,6 +43,7 @@ body {
 .sidebar {
   position: fixed;
   top: 0;
+  background-color: #170055 !important;
   /* rtl:raw:
   right: 0;
   */
@@ -71,7 +72,7 @@ body {
 
 .sidebar .nav-link {
   font-weight: 500;
-  color: var(--fuentes);
+  color: white;
 
 }
 
@@ -132,13 +133,16 @@ body {
 }
 
 
-
+#sidebarMenu{
+  background-color: #170055 !important;
+}
 
 
 .forms_st {
   border-radius: 5px;
-  border: 1px solid gray ;
+  border: 1px solid #AE00FB !important;
   padding: 25px;
+  text-align: center;
 
 }
 .forms_st label{
@@ -154,13 +158,13 @@ body {
 
 
 .table>:not(caption)>*>*{
-  inset 0 0 0 9999px var(--bs-table-accent-bg)
+  inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
 
 .titulos{
   margin-top: 25px;
   text-align: center;
-  color: var(--fuentes);
+  color: white;
 
 }
 
@@ -198,6 +202,9 @@ body {
   background-color: #170055;
   color: whitesmoke;
   border: 2px solid #AE00FB;
+  box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
+-webkit-box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
+-moz-box-shadow: 10px 10px 249px -41px rgba(174,0,251,0.75);
   /* outline: 1px solid red; */
 }
 
@@ -270,8 +277,8 @@ body {
 
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: #668a27;
-    border-color: #668a27; /*set the color you want here*/
+    background-color: #AE00FB;
+    border-color: #AE00FB; /*set the color you want here*/
 }
 
 
@@ -299,5 +306,10 @@ body {
 
 
 .form-colors{
+  color: white;
+}
+
+.form-message textarea{
+  background-color: #170055;
   color: white;
 }
