@@ -19,6 +19,7 @@ from notifypy import Notify
 
 import sweetify
 
+from notifypy import Notify
 
 
 Connected = False
@@ -108,6 +109,7 @@ def poweroff(request,id_equipo):
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         admin=equipo.user_admin.format()
+        name= equipo.name
         passw=equipo.passwordadmin.format()
         try:
             session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
@@ -124,24 +126,25 @@ def mem_pro_consum(id_equipo):
             procons=""
             for i in datalist:
                     procons=+i
-            if memoryfree and procons ==None:
+            if memoryfree and procons is None:
                     state=False
+                    equipo.state=state
+
             else:
                     state=True
-            print(procons)
-            print(state)
-            equipo.state=state
+                    equipo.state=state
             roundgb=memoryfree/1000/1024
             mem_free_round=round(roundgb)
-            print(mem_free_round)
             equipo.memory_free=mem_free_round
             equipo.pro_consum=procons
             equipo.save()
         except NameError:
             print("error de la conexion")
         except:
-            print("otro error")
-            send_email()
+                send_noti(name)
+                print(id_equipo)
+                print("otro error")
+                send_email(id_equipo,name)
 
 
 
@@ -169,9 +172,25 @@ def send_message(request,id_equipo):
                 # return render(request, 'core/send.html', {'form': form})
 
 
-def send_email(request):
+def send_email(id_equipo,name):
     print("enviando mail")
     return redirect('/home')
+
+
+
+
+
+def send_noti(name):
+
+    notification = Notify()
+    notification.title = name
+    notification.message = "Tiene problemas de conexion."
+    notification.icon = "core/static/img/iconimp.png"
+    # notification.audio = "path/to/audio/file.wav"
+
+    notification.send()
+
+
 
 
 class EquipoViewSet(viewsets.ModelViewSet):
@@ -190,19 +209,19 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 
 
-# def get_value():
-#     while Connected != True:  # Wait for connection
-#         time.sleep(15)
-#         ob = Equipo.objects.all()
-#         for i in ob:
-#                 mem_pro_consum(i.id_equipo)  
+def get_value():
+    while Connected != True:  # Wait for connection
+        time.sleep(15)
+        ob = Equipo.objects.all()
+        for i in ob:
+                mem_pro_consum(i.id_equipo)  
 
 
 
 
 
-# sub = threading.Thread(target=get_value)
-# sub.start()
+sub = threading.Thread(target=get_value)
+sub.start()
 
 
 
