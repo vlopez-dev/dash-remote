@@ -1,4 +1,4 @@
-from .models import Configuration
+from core.models import Configuration
 from rest_framework import serializers
 class ConfigurationSerializer(serializers.ModelSerializer):
     class Meta:

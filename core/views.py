@@ -190,19 +190,19 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 
 
-def get_value():
-    while Connected != True:  # Wait for connection
-        time.sleep(15)
-        ob = Equipo.objects.all()
-        for i in ob:
-                mem_pro_consum(i.id_equipo)  
+# def get_value():
+#     while Connected != True:  # Wait for connection
+#         time.sleep(15)
+#         ob = Equipo.objects.all()
+#         for i in ob:
+#                 mem_pro_consum(i.id_equipo)  
 
 
 
 
 
-sub = threading.Thread(target=get_value)
-sub.start()
+# sub = threading.Thread(target=get_value)
+# sub.start()
 
 
 

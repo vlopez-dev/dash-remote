@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from requests import Response
 from configuration.serializer import ConfigurationSerializer
+from rest_framework import viewsets
 
 from core.models import Configuration
 
@@ -17,7 +18,7 @@ def configuration(request):
 
 class ConfigurationViewSet(viewsets.ModelViewSet):
 
-    queryset = Configuration.objects.all().order_by('id_configuration')
+    queryset = Configuration.objects.all().order_by('id_config')
     serializer_class = ConfigurationSerializer
     template_name = 'core/index.html'
 
