@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from requests import Response
-from configuration.serializer import ConfigurationSerializer
+from configuration.serializer import  SysemailSerializer
 from rest_framework import viewsets
-
-from core.models import Configuration
+from .forms import SysemailForm
+from configuration.models import Sysemail
+from .models import Sysemail
+import sweetify
 
 # Create your views here.
 
@@ -16,15 +18,61 @@ def configuration(request):
 
 
 
-class ConfigurationViewSet(viewsets.ModelViewSet):
 
-    queryset = Configuration.objects.all().order_by('id_config')
-    serializer_class = ConfigurationSerializer
+def add_sysemail(request,id_config=0):
+    if request.method == "GET":
+        if id_config == 0 :
+            form =SysemailForm()
+        else:
+            config = Sysemail.objects.get(pk=id_config)
+
+            form = SysemailForm(instance=config)
+        return render(request, 'configuration/add_config_email.html', {'form': form})
+    else:
+        if id_config == 0:
+            form = SysemailForm(request.POST)
+        else:
+            config = Sysemail.objects.get(pk=id_config)
+            form = SysemailForm(request.POST,instance= config)
+    if form.is_valid():
+            form.save()
+            sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
+
+
+    return redirect('/configuration/configuration/')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SysemailViewSet(viewsets.ModelViewSet):
+
+    queryset = Sysemail.objects.all().order_by('id_config')
+    serializer_class = SysemailSerializer
     template_name = 'core/index.html'
 
 
     def get(self, request, id_config):
         configuration = get_object_or_404(Equipo, pk=id_config)
-        serializer = ConfigurationSerializer(configuration)
+        serializer = SysemailSerializer(configuration)
         print(serializer)
         return Response({'serializer': serializer, 'configuration': configuration},template_name='test.html')

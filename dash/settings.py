@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,3 +153,11 @@ REST_FRAMEWORK = {
 
 
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
+
+
+
+EMAIL_HOST = config('EMAIL_HOST', default='192.168.1.1')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='@prueba!1962')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='prueba@amec.com.uy')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)

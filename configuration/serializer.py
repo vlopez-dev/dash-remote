@@ -1,8 +1,8 @@
-from core.models import Configuration
+from .models import Sysemail
 from rest_framework import serializers
-class ConfigurationSerializer(serializers.ModelSerializer):
+class SysemailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Configuration
+        model = Sysemail
         fields = ('id_config','email','passemail','recivedemail','contentemail')
         
         

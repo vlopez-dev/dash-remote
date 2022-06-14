@@ -1,18 +1,31 @@
-{% extends 'core/base.html' %}
-{% load bootstrap5 %}
-
-{% load crispy_forms_tags %}
+{% extends 'core/base.html' %} 
+{% load bootstrap5 %} 
+{% load crispy_forms_tags%} 
 {{form.mobile|as_crispy_field}}
-
-
 
 {% block content %}
 
+<div class="container container_home">
+  <div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'add_config' %}">
+      <div class="card-valores">
 
-
-
-
-
-
+        <h4>Configuracion email</h4>
+        <img src="https://img.icons8.com/nolan/64/filled-sent.png"/>
+      </div>
+    </a>
+    </div>
+    <div class="col-md-4">
+        <a href="">
+        <div class="card-valores">
+  
+          <h4>Configuracion chequeo</h4>
+          <img src="https://img.icons8.com/nolan/64/settings--v1.png"/>
+        </div>
+    </a>
+      </div>
+  </div>
+</div>
 
 {% endblock content %}

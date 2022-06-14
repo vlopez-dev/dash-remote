@@ -1,6 +1,8 @@
 from distutils.command.clean import clean
+import imp
 import json
 import threading
+from unicodedata import name
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import Response, request
@@ -20,6 +22,16 @@ from notifypy import Notify
 import sweetify
 
 from notifypy import Notify
+
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+
+from django.core.mail import send_mail
+from configuration.models import Sysemail
+
+
+
+
 
 
 Connected = False
@@ -104,13 +116,11 @@ def poweroff(request,id_equipo):
 
 
 
-
-
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         admin=equipo.user_admin.format()
-        name= equipo.name
         passw=equipo.passwordadmin.format()
+        name =equipo.name
         try:
             session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
             resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
@@ -126,25 +136,26 @@ def mem_pro_consum(id_equipo):
             procons=""
             for i in datalist:
                     procons=+i
-            if memoryfree and procons is None:
+            if memoryfree and procons  is None:
                     state=False
-                    equipo.state=state
-
             else:
                     state=True
-                    equipo.state=state
+            print(procons)
+            print(state)
+            equipo.state=state
             roundgb=memoryfree/1000/1024
             mem_free_round=round(roundgb)
+            print(mem_free_round)
             equipo.memory_free=mem_free_round
             equipo.pro_consum=procons
             equipo.save()
         except NameError:
             print("error de la conexion")
         except:
-                send_noti(name)
-                print(id_equipo)
-                print("otro error")
-                send_email(id_equipo,name)
+            print("otro error")
+            send_noti(name)
+
+
 
 
 
@@ -172,9 +183,38 @@ def send_message(request,id_equipo):
                 # return render(request, 'core/send.html', {'form': form})
 
 
-def send_email(id_equipo,name):
-    print("enviando mail")
+def check_status():
+    print("Enviando mail cada una hora")
+    equipo = Equipo.objects.all()
+    for e in equipo:
+        if e.state is None:
+            print("enviando mail")
+            send_email()
+        else:
+            print("Todo ok")
+
+
     return redirect('/home')
+
+
+
+
+
+
+def send_email():
+    config = Sysemail.objects.last()
+    msg = config.contentemail
+    email=config.email.format()
+    reciv=config.recivedemail.format()
+    equipo = Equipo.objects.get(state=None)
+    send_mail('Equipo no responde'+ ' ' +equipo.name,'Here is the message.',reciv,[email],
+    fail_silently=False,)
+
+
+
+
+
+
 
 
 
@@ -209,19 +249,26 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 
 
+def get_emailcheck():
+    while Connected != True:  # Wait for connection
+        time.sleep(3600)
+        check_status()
+
+
 def get_value():
     while Connected != True:  # Wait for connection
         time.sleep(15)
         ob = Equipo.objects.all()
         for i in ob:
-                mem_pro_consum(i.id_equipo)  
-
-
+                mem_pro_consum(i.id_equipo)
 
 
 
 sub = threading.Thread(target=get_value)
+subtwo = threading.Thread(target=get_emailcheck)
+
 sub.start()
+subtwo.start()
 
 
 
