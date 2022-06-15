@@ -9,3 +9,13 @@ class Sysemail(models.Model):
     subject = models.CharField(max_length=100, null=True)
     contentemail = models.CharField(max_length=200, null=True)
     
+    
+    
+class Parameters(models.Model):
+    time = (
+    (10, '10min'),
+    (20, '20min'),
+    (30, '30min'),
+  )
+    time_check= models.IntegerField(choices=time)
+        
