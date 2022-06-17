@@ -7,6 +7,8 @@ router.register(r'configuration', views.SysemailViewSet)
 urlpatterns = [
     path("configuration/",views.configuration,name='config_home'),
     path("add_config/",views.add_sysemail,name='add_config'),
+    path("configcheck/",views.change_para,name='config_check'),
+
 
     path('', include(router.urls)),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))

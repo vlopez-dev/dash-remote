@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from requests import Response
 from configuration.serializer import  SysemailSerializer
 from rest_framework import viewsets
-from .forms import SysemailForm
+from .forms import ParameterForm, SysemailForm
 from configuration.models import Sysemail
-from .models import Sysemail
+from .models import Sysemail,Parameter
 import sweetify
 
 # Create your views here.
@@ -47,9 +47,29 @@ def add_sysemail(request,id_config=0):
 
 
 
+def change_para(request,id_param=0):
+        
+
+    if request.method == "GET":
+            if id_param == 0 :
+                form =ParameterForm()
+            else:
+                param = Parameter.objects.get(pk=id_param)
+
+                form = ParameterForm(instance=param)
+            return render(request, 'configuration/configcheck.html', {'form': form})
+    else:
+            if id_param == 0:
+                form = ParameterForm(request.POST)
+            else:
+                param = Parameter.objects.get(pk=param)
+                form = ParameterForm(request.POST,instance= param)
+    if form.is_valid():
+                form.save()
+                sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
 
 
-
+    return redirect('/configuration/configuration/')
 
 
 
