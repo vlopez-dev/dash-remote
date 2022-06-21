@@ -19,6 +19,7 @@ class Sysemail(models.Model):
     
 class Parameter(models.Model):
     time = (
+    (5,   '5min'),
     (10, '10min'),
     (20, '20min'),
     (30, '30min'),

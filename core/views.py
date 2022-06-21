@@ -27,8 +27,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 
 from django.core.mail import send_mail
-from configuration.models import Sysemail
-
+from configuration.models import Parameter, Sysemail
 
 
 
@@ -257,9 +256,14 @@ def get_emailcheck():
 
 def get_value():
     while Connected != True:  # Wait for connection
-        time.sleep(15)
-        ob = Equipo.objects.all()
-        for i in ob:
+            parameter = Parameter.objects.all()
+            for p in parameter:
+                timesleep=p.time_check
+
+            print(timesleep)
+            time.sleep(timesleep)
+            ob = Equipo.objects.all()
+            for i in ob:
                 mem_pro_consum(i.id_equipo)
 
 
