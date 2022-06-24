@@ -12,7 +12,7 @@ class Equipoform(forms.ModelForm):
 
   
         labels = {
-            'name':'Nombre','direction':'Direccion Ip','user_admin':'Administrador','passwordadmin':'Password',
+            'name':'Nombre','direction':'Direccion Ip','user_admin':'Administrador','passwordadmin':'Password'
         }
 
 

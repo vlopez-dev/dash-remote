@@ -3,10 +3,9 @@ import imp
 import json
 import threading
 from unicodedata import name
+from urllib import response
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
-from requests import Response, request
-import requests
 import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
@@ -243,7 +242,7 @@ class EquipoViewSet(viewsets.ModelViewSet):
         equipo = get_object_or_404(Equipo, pk=id_equipo)
         serializer = EquipoSerializer(equipo)
         print(serializer)
-        return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
+        return response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
 
 
 
@@ -257,11 +256,13 @@ def get_emailcheck():
 def get_value():
     while Connected != True:  # Wait for connection
             parameter = Parameter.objects.all()
+            timesleep=10
             for p in parameter:
                 timesleep=p.time_check
 
             print(timesleep)
             time.sleep(timesleep)
+
             ob = Equipo.objects.all()
             for i in ob:
                 mem_pro_consum(i.id_equipo)

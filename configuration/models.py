@@ -19,10 +19,10 @@ class Sysemail(models.Model):
     
 class Parameter(models.Model):
     time = (
-    (5,   '5min'),
-    (10, '10min'),
-    (20, '20min'),
-    (30, '30min'),
+    (300,   '5min'),
+    (600, '10min'),
+    (1200, '20min'),
+    (1800, '30min'),
   )
     id_param=models.AutoField(primary_key=True)
     time_check= models.IntegerField(choices=time)

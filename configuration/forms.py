@@ -10,12 +10,12 @@ class SysemailForm(forms.ModelForm):
         model=Sysemail
         fields = '__all__'
 
-
-        # labels = {
-        #             'nombre':'Nombre','direccion':'Dirección','telefono':'Teléfono'
-
-        #         }
         
+        
+        labels = {
+                    'email':'E-mail','passemail':'Password','recivedemail':'Email Receptor','subject':'Asunto','contentemail':'Contenido','time_mail':'Tiempo de envio'
+
+                }
         
         
         
@@ -24,3 +24,12 @@ class ParameterForm(forms.ModelForm):
     class Meta:
         model=Parameter
         fields = '__all__'
+        
+        
+        
+
+        labels = {
+                    'time_check':'Tiempo'
+
+                }
+        

@@ -23,3 +23,13 @@ mysqlclient>=2.1.0
 
 #WhiteNoise
 whitenoise>=6.2.0
+
+#decuple
+python-decouple>=3.6
+
+#sweetify
+sweetify>=2.3.1
+
+
+#pywinrm
+pywinrm>=0.4.3

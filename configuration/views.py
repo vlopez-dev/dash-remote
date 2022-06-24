@@ -77,6 +77,15 @@ def change_para(request,id_param=0):
 
 
 
+def delete_parameter(request,id_param):
+    param = Parameter.objects.get(pk=id_param)
+    param.delete()
+    sweetify.success(request, 'Exito', text='Eliminado Correctamente', persistent='Aceptar')
+
+    return redirect('/home')
+
+
+
 
 
 
