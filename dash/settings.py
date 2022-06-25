@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'crispy_forms',
+    'crispy_bootstrap5',
     'bootstrap5',
     'rest_framework',
     'sweetify',
@@ -80,20 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dash.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'dash',
-#         'USER': 'proyecto',
-#         'PASSWORD': 'proyecto',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -154,6 +141,9 @@ REST_FRAMEWORK = {
 
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 EMAIL_HOST = config('EMAIL_HOST', default='192.168.1.1')
