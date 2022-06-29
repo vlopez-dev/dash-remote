@@ -1,4 +1,5 @@
 from distutils.command.clean import clean
+import email
 import imp
 import json
 import threading
@@ -249,8 +250,20 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 def get_emailcheck():
     while Connected != True:  # Wait for connection
-        time.sleep(3600)
-        check_status()
+        ob = Sysemail.objects.all()
+        if ob == None:
+            print("Esta vacio")
+        else:
+            
+                
+            for e in ob:
+                timecheck = e.time_mail
+                print("Tiempo de chequeo es :"+timecheck)
+            time.sleep(3600)
+            check_status()
+
+subtwo = threading.Thread(target=get_emailcheck)
+subtwo.start()
 
 
 def get_value():
@@ -266,14 +279,7 @@ def get_value():
             ob = Equipo.objects.all()
             for i in ob:
                 mem_pro_consum(i.id_equipo)
-
-
-
 sub = threading.Thread(target=get_value)
-subtwo = threading.Thread(target=get_emailcheck)
-
 sub.start()
-subtwo.start()
-
 
 
