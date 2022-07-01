@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'sweetify',
     'corsheaders',
-    'configuration'
+    'configuration',
+    'registration'
 
 
 
