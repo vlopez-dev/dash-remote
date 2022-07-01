@@ -181,7 +181,6 @@ def send_message(request,id_equipo):
             return redirect('/home')
 
 
-                # return render(request, 'core/send.html', {'form': form})
 
 
 def check_status():
@@ -207,7 +206,9 @@ def send_email():
     email=config.email.format()
     reciv=config.recivedemail.format()
     equipo = Equipo.objects.get(state=None)
-    send_mail('Equipo no responde'+ ' ' +equipo.name,'Here is the message.',reciv,[email],
+    print(reciv)
+    print(email)
+    send_mail('Equipo no responde'+ ' ' +equipo.name,msg,email,[reciv],
     fail_silently=False,)
 
 
@@ -255,11 +256,9 @@ def get_emailcheck():
         if ob == None:
             print("Esta vacio")
         else:
-            
-                
             for e in ob:
                 timecheck = e.time_mail
-            time.sleep(1800)
+            time.sleep(timecheck)
             print("Checkcando estatus para mandar mail")
             check_status()
 
