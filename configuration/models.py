@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 class Sysemail(models.Model):
     timemail = (
-      (60, '1 hora'),
-      (120, '2 horas'),
-      (240, '3 horas'),
+      (1800,'30 min'),
+      (3600, '1 hora'),
+      (7200, '2 horas'),
     )
     id_config = models.AutoField(primary_key=True)
     email  = models.CharField(max_length=100,null=True)
@@ -19,10 +19,12 @@ class Sysemail(models.Model):
     
 class Parameter(models.Model):
     time = (
-    (300,   '5min'),
-    (600, '10min'),
-    (1200, '20min'),
-    (1800, '30min'),
+      (60, '1 min'),
+     (120, '2 min'), 
+    (300,   '5 min'),
+    (600, '10 min'),
+    (1200, '20 min'),
+    (1800, '30 min'),
   )
     id_param=models.AutoField(primary_key=True)
     time_check= models.IntegerField(choices=time)

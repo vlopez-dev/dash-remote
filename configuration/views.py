@@ -1,3 +1,4 @@
+from ast import Param
 from django.shortcuts import render,redirect
 from requests import Response
 from configuration.serializer import  SysemailSerializer
@@ -65,6 +66,8 @@ def change_para(request,id_param=0):
                 param = Parameter.objects.get(pk=param)
                 form = ParameterForm(request.POST,instance= param)
     if form.is_valid():
+                paramlast=Parameter.objects.last()
+                paramlast.delete()
                 form.save()
                 sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
 
@@ -85,6 +88,12 @@ def delete_parameter(request,id_param):
     return redirect('/home')
 
 
+def reset_config(request):
+    param = Parameter.objects.latest()
+    sysemail= Sysemail.objects.latest()
+    param.delete()
+    sysemail.delete()
+    sweetify.success(request, 'Exito', text='Eliminado Correctamente', persistent='Aceptar')
 
 
 

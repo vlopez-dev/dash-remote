@@ -1,5 +1,6 @@
 from distutils.command.clean import clean
 import email
+from http.client import HTTPResponse
 import imp
 import json
 import threading
@@ -7,6 +8,7 @@ from unicodedata import name
 from urllib import response
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
+from requests import request
 import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
@@ -89,7 +91,7 @@ def restart(request,id_equipo):
     admin=equipo.user_admin.format()
     passw=equipo.passwordadmin.format()
     session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-    result = session.run_ps("ping 192.168.1.228")
+    result = session.run_ps("shutdown -r")
     result=result.std_out
     sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
     return redirect('/home')
@@ -183,7 +185,6 @@ def send_message(request,id_equipo):
 
 
 def check_status():
-    print("Enviando mail cada una hora")
     equipo = Equipo.objects.all()
     for e in equipo:
         if e.state is None:
@@ -227,7 +228,8 @@ def send_noti(name):
     notification.icon = "core/static/img/iconimp.png"
     # notification.audio = "path/to/audio/file.wav"
 
-    notification.send()
+    notification.send(request)
+
 
 
 
@@ -247,7 +249,6 @@ class EquipoViewSet(viewsets.ModelViewSet):
 
 
 
-
 def get_emailcheck():
     while Connected != True:  # Wait for connection
         ob = Sysemail.objects.all()
@@ -258,8 +259,8 @@ def get_emailcheck():
                 
             for e in ob:
                 timecheck = e.time_mail
-                print("Tiempo de chequeo es :"+timecheck)
-            time.sleep(3600)
+            time.sleep(1800)
+            print("Checkcando estatus para mandar mail")
             check_status()
 
 subtwo = threading.Thread(target=get_emailcheck)
