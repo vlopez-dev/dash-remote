@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -145,6 +145,10 @@ SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+LOGIN_REDIRECT_URL='home'
+LOGOUT_REDIRECT_URL='login'
+
+
 
 
 EMAIL_HOST = config('EMAIL_HOST', default='192.168.1.1')

@@ -87,14 +87,18 @@ def delete_server(request,id_equipo):
 
 
 def restart(request,id_equipo):
-    equipo= Equipo.objects.get(pk=id_equipo)
-    admin=equipo.user_admin.format()
-    passw=equipo.passwordadmin.format()
-    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-    result = session.run_ps("shutdown -r")
-    result=result.std_out
-    sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
-    return redirect('/home')
+    try:
+        equipo= Equipo.objects.get(pk=id_equipo)
+        admin=equipo.user_admin.format()
+        passw=equipo.passwordadmin.format()
+        session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+        result = session.run_ps("shutdown -r")
+        result=result.std_out
+            
+        sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
+        return redirect('/home')
+    except result==None:
+        sweetify.error(request, 'Some error happened here - reload the site', persistent=':(')
 
 
 
@@ -222,14 +226,13 @@ def send_email():
 
 
 def send_noti(name):
-
     notification = Notify()
     notification.title = name
     notification.message = "Tiene problemas de conexion."
     notification.icon = "core/static/img/iconimp.png"
     # notification.audio = "path/to/audio/file.wav"
 
-    notification.send(request)
+    notification.send()
 
 
 
@@ -258,7 +261,8 @@ def get_emailcheck():
         else:
             for e in ob:
                 timecheck = e.time_mail
-            time.sleep(timecheck)
+                print(timecheck)
+            time.sleep(10)
             print("Checkcando estatus para mandar mail")
             check_status()
 

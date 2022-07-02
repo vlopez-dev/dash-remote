@@ -67,10 +67,13 @@ def change_para(request,id_param=0):
                 form = ParameterForm(request.POST,instance= param)
     if form.is_valid():
                 paramlast=Parameter.objects.last()
-                paramlast.delete()
-                form.save()
-                sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
-
+                if paramlast==None:
+                    form.save()
+                    sweetify.success(request, 'Exito', text='Agregado Correctamente', persistent='Aceptar')
+                else:
+                    paramlast.delete()
+                    form.save()
+                
 
     return redirect('/configuration/configuration/')
 
@@ -80,12 +83,14 @@ def change_para(request,id_param=0):
 
 
 
-def delete_parameter(request,id_param):
-    param = Parameter.objects.get(pk=id_param)
-    param.delete()
-    sweetify.success(request, 'Exito', text='Eliminado Correctamente', persistent='Aceptar')
+# def delete_parameter(request,id_param):
+#     param = Parameter.objects.get(pk=id_param)
+#     if param == None:
+        
+#     param.delete()
+#     sweetify.success(request, 'Exito', text='Eliminado Correctamente', persistent='Aceptar')
 
-    return redirect('/home')
+#     return redirect('/home')
 
 
 def reset_config(request):

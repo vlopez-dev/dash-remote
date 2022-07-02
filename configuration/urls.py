@@ -8,7 +8,7 @@ urlpatterns = [
     path("configuration/",views.configuration,name='config_home'),
     path("add_config/",views.add_sysemail,name='add_config'),
     path("configcheck/",views.change_para,name='config_check'),
-    path("<int:id_param>/delete_param/",views.delete_parameter,name='delete_param'),
+    # path("<int:id_param>/delete_param/",views.delete_parameter,name='delete_param'),
 
 
     path('', include(router.urls)),
