@@ -17,7 +17,6 @@ urlpatterns = [
     path('<int:id_equipo>/poweroff',views.poweroff,name='poweroff'),
     path("addserver/",views.add_server,name='add_server'),
     path("<int:id_equipo>/sendmessage",views.send_message,name='sendmessage'),
-    # path("send/",views.send,name='send'),
 
 
     path('', include(router.urls)),

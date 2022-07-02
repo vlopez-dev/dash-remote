@@ -1,10 +1,14 @@
 from distutils.command.clean import clean
+import email
+from http.client import HTTPResponse
+import imp
 import json
 import threading
+from unicodedata import name
+from urllib import response
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
-from requests import Response, request
-import requests
+from requests import request
 import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
@@ -18,6 +22,16 @@ import re
 from notifypy import Notify
 
 import sweetify
+
+from notifypy import Notify
+
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+
+from django.core.mail import send_mail
+from configuration.models import Parameter, Sysemail
+
+
 
 
 
@@ -73,14 +87,18 @@ def delete_server(request,id_equipo):
 
 
 def restart(request,id_equipo):
-    equipo= Equipo.objects.get(pk=id_equipo)
-    admin=equipo.user_admin.format()
-    passw=equipo.passwordadmin.format()
-    session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
-    result = session.run_ps("ping 192.168.1.228")
-    result=result.std_out
-    sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
-    return redirect('/home')
+    try:
+        equipo= Equipo.objects.get(pk=id_equipo)
+        admin=equipo.user_admin.format()
+        passw=equipo.passwordadmin.format()
+        session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
+        result = session.run_ps("shutdown -r")
+        result=result.std_out
+            
+        sweetify.success(request, 'Exito', text='Reiniciado Correctamente', persistent='Aceptar')
+        return redirect('/home')
+    except result==None:
+        sweetify.error(request, 'Some error happened here - reload the site', persistent=':(')
 
 
 
@@ -103,12 +121,11 @@ def poweroff(request,id_equipo):
 
 
 
-
-
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         admin=equipo.user_admin.format()
         passw=equipo.passwordadmin.format()
+        name =equipo.name
         try:
             session = winrm.Session(equipo.direction, auth=(admin,passw),transport='ntlm')
             resultmemory = session.run_ps("wmic OS get FreePhysicalMemory")
@@ -124,7 +141,7 @@ def mem_pro_consum(id_equipo):
             procons=""
             for i in datalist:
                     procons=+i
-            if memoryfree and procons ==None:
+            if memoryfree and procons  is None:
                     state=False
             else:
                     state=True
@@ -141,7 +158,9 @@ def mem_pro_consum(id_equipo):
             print("error de la conexion")
         except:
             print("otro error")
-            send_email()
+            send_noti(name)
+
+
 
 
 
@@ -166,12 +185,57 @@ def send_message(request,id_equipo):
             return redirect('/home')
 
 
-                # return render(request, 'core/send.html', {'form': form})
 
 
-def send_email(request):
-    print("enviando mail")
+def check_status():
+    equipo = Equipo.objects.all()
+    for e in equipo:
+        if e.state is None:
+            print("enviando mail")
+            send_email()
+        else:
+            print("Todo ok")
+
+
     return redirect('/home')
+
+
+
+
+
+
+def send_email():
+    config = Sysemail.objects.last()
+    msg = config.contentemail
+    email=config.email.format()
+    reciv=config.recivedemail.format()
+    equipo = Equipo.objects.get(state=None)
+    print(reciv)
+    print(email)
+    send_mail('Equipo no responde'+ ' ' +equipo.name,msg,email,[reciv],
+    fail_silently=False,)
+
+
+
+
+
+
+
+
+
+
+
+def send_noti(name):
+    notification = Notify()
+    notification.title = name
+    notification.message = "Tiene problemas de conexion."
+    notification.icon = "core/static/img/iconimp.png"
+    # notification.audio = "path/to/audio/file.wav"
+
+    notification.send()
+
+
+
 
 
 class EquipoViewSet(viewsets.ModelViewSet):
@@ -185,24 +249,41 @@ class EquipoViewSet(viewsets.ModelViewSet):
         equipo = get_object_or_404(Equipo, pk=id_equipo)
         serializer = EquipoSerializer(equipo)
         print(serializer)
-        return Response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
+        return response({'serializer': serializer, 'equipo': equipo},template_name='test.html')
 
 
+
+def get_emailcheck():
+    while Connected != True:  # Wait for connection
+        ob = Sysemail.objects.all()
+        if ob == None:
+            print("Esta vacio")
+        else:
+            for e in ob:
+                timecheck = e.time_mail
+                print(timecheck)
+            time.sleep(10)
+            print("Checkcando estatus para mandar mail")
+            check_status()
+
+subtwo = threading.Thread(target=get_emailcheck)
+subtwo.start()
 
 
 def get_value():
     while Connected != True:  # Wait for connection
-        time.sleep(15)
-        ob = Equipo.objects.all()
-        for i in ob:
-                mem_pro_consum(i.id_equipo)  
+            parameter = Parameter.objects.all()
+            timesleep=10
+            for p in parameter:
+                timesleep=p.time_check
 
+            print(timesleep)
+            time.sleep(timesleep)
 
-
-
-
+            ob = Equipo.objects.all()
+            for i in ob:
+                mem_pro_consum(i.id_equipo)
 sub = threading.Thread(target=get_value)
 sub.start()
-
 
 

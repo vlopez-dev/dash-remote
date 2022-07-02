@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,10 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'crispy_forms',
+    'crispy_bootstrap5',
     'bootstrap5',
     'rest_framework',
     'sweetify',
-    'corsheaders'
+    'corsheaders',
+    'configuration',
+    'registration'
 
 
 
@@ -79,9 +83,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dash.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -141,3 +142,18 @@ REST_FRAMEWORK = {
 
 
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+LOGIN_REDIRECT_URL='home'
+LOGOUT_REDIRECT_URL='login'
+
+
+
+
+EMAIL_HOST = config('EMAIL_HOST', default='192.168.1.1')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='@prueba!1962')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='prueba@amec.com.uy')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)

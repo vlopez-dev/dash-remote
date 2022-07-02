@@ -25,9 +25,3 @@ class Equipo(models.Model):
     def __str__(self):
             return self.name
 
-
-class Configuration(models.Model):
-        id_config=models.AutoField(primary_key=True)
-        email=models.CharField(max_length=100)
-        passemail = models.CharField(max_length=100, null=True)
-        

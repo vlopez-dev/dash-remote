@@ -1,34 +1,40 @@
 {% extends 'core/base.html' %}
-{% load bootstrap5 %}
-
 {% load crispy_forms_tags %}
 {{form.mobile|as_crispy_field}}
-
 {% block content %}
 <div class="container-sm">
   <div class="row">
     <div class="col-md-1"></div>
 
     <div class="col-md-6  ">
-            <h5 class="titulos">Server</h5>
+            <h5 class="titulos">Alerta e-mail</h5>
             <form action=""method="POST"autocomplete="off"class="justify-content-center forms_st shadow-form  ">
-              
+              <div class="row">
               <div class="mb-4">
                 {% csrf_token %} 
 
-                {{ form.name|as_crispy_field }}
+                {{ form.email|as_crispy_field }}
 
               </div>
               <div class="mb-4">
-                {{ form.direction|as_crispy_field }}
+                {{ form.passemail|as_crispy_field }}
+
+              </div>
+            </div>
+              <div class="mb-4">
+                {{ form.recivedemail|as_crispy_field }}
 
               </div>
               <div class="mb-4">
-                {{ form.user_admin|as_crispy_field }}
+                {{ form.subject|as_crispy_field }}
 
               </div>
               <div class="mb-4">
-                {{ form.passwordadmin|as_crispy_field }}
+                {{ form.contentemail|as_crispy_field }}
+
+              </div>
+              <div class="mb-4">
+                {{ form.time_mail|as_crispy_field }}
 
               </div>
               <div class="d-grid gap-2 d-md-block">

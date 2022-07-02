@@ -45,7 +45,7 @@
   </button>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href=" url">Sign out</a>
+      <a class="nav-link px-3" href=" {% url 'logout' %}">Sign out</a>
 
     </div>
   </div>
@@ -67,7 +67,7 @@
               Agregar Servidor
             </a>
 
-          <a class="nav-link" href="{% url 'add_server' %}">
+          <a class="nav-link" href="{% url 'config_home' %}">
             <span><img src="https://img.icons8.com/nolan/48/data-configuration.png"/></span>
             Configuraciones
           </a>
