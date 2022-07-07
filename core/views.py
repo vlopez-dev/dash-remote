@@ -1,14 +1,19 @@
 from distutils.command.clean import clean
 import email
+from email import message
 from http.client import HTTPResponse
 import imp
 import json
 import threading
+from django.conf import settings
+
 from unicodedata import name
 from urllib import response
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from requests import request
+from telegram import Bot
+
 import winrm
 from django.contrib import messages #import messages
 from .models import Equipo
@@ -158,6 +163,8 @@ def mem_pro_consum(id_equipo):
             print("error de la conexion")
         except:
             print("otro error")
+            message_bot(name)
+
             send_noti(name)
 
 
@@ -195,6 +202,7 @@ def check_status():
             send_email()
         else:
             print("Todo ok")
+            
 
 
     return redirect('/home')
@@ -262,7 +270,7 @@ def get_emailcheck():
             for e in ob:
                 timecheck = e.time_mail
                 print(timecheck)
-            time.sleep(10)
+            time.sleep(timecheck)
             print("Checkcando estatus para mandar mail")
             check_status()
 
@@ -287,3 +295,9 @@ sub = threading.Thread(target=get_value)
 sub.start()
 
 
+def message_bot(name):
+    tele_setting=settings.TELEGRAM
+    print(name)
+    bot = Bot(token=tele_setting['bot_token'])
+    msg=f"El equipo {name} tiene problemas de conexion"
+    bot.send_message(tele_setting['channel'], msg)
