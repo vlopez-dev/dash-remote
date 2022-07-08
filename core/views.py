@@ -299,5 +299,7 @@ def message_bot(name):
     tele_setting=settings.TELEGRAM
     print(name)
     bot = Bot(token=tele_setting['bot_token'])
+    timecheck= Parameter.objects.last()
+    
     msg=f"El equipo {name} tiene problemas de conexion"
     bot.send_message(tele_setting['channel'], msg)
