@@ -1,0 +1,3 @@
+<a href="{{ mensaje.url }}">{{ mensaje.title }}</a>
+{{ mensaje.description|truncatewords:30 }}
+<strong>Date:</strong>{{ mensaje.start_date|date:'SHORT_DATE_FORMAT' }}

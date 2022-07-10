@@ -4,9 +4,10 @@
 {% load crispy_forms_tags %}
 {% block title %}Iniciar sesión{% endblock %}
 {% block content %}
-    <div class="container container_login ">
-        <div class="row ">
-            <div class="col-md-9 mx-auto mb-5">
+    <section class="sec min-vh-100">
+    <div class="container">
+        <div class="row text-white ">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
                 <form  action="" method="post">{% csrf_token %}
                     <h3 class="mb-4">Registro</h3>
                     {{ form.username|as_crispy_field }}
@@ -21,7 +22,7 @@
             </div>
         </div>
     </div>
-
+</section>
 
 
 

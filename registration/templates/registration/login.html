@@ -6,14 +6,13 @@
 {% block content %}
 
 
+<section class="sec min-vh-100">
+<div class="container">
+  <div class="row text-white">
 
-<div class="container-sm container_login">
-  <div class="row">
-    <div class="col-md-3"></div>
-
-    <div class="col-md-6 ">
+    <div class=" col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
             <h5 class="titulos"></h5>
-            <form action=""method="POST"autocomplete="off"class="form justify-content-center forms_st shadow-form form_login">
+            <form action=""method="POST"autocomplete="off" class="justify-content-center">
               <div class="mb-4">
                 {% csrf_token %} 
                 
@@ -30,13 +29,13 @@
             </form>
     </div>
     <p class="text-center">Si no tienes una cuenta, <a href="{% url 'signup' %} ">registrate</a>.</p>
-
+  
     
 </div>
 </div>
 
 
-
+</section>
 
 
 
