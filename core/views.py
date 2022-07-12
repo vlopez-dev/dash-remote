@@ -35,13 +35,12 @@ from django.core.mail import EmailMultiAlternatives
 
 from django.core.mail import send_mail
 from configuration.models import Parameter, Sysemail
-
-
+from django.contrib.auth.decorators import login_required
 
 
 
 Connected = False
-
+@login_required
 def index(request):
     equipos = Equipo.objects.all()
     return render(request,"core/index.html",{'equipos':equipos})
@@ -49,7 +48,7 @@ def index(request):
 
 
 
-
+@login_required
 def add_server(request,id_equipo=0):
     print(request.method)
     if request.method == "GET":
@@ -75,7 +74,7 @@ def add_server(request,id_equipo=0):
 
 
 
-
+@login_required
 def delete_server(request,id_equipo):
     equipo = Equipo.objects.get(pk=id_equipo)
     equipo.delete()
@@ -90,7 +89,7 @@ def delete_server(request,id_equipo):
 
 
 
-
+@login_required
 def restart(request,id_equipo):
     try:
         equipo= Equipo.objects.get(pk=id_equipo)
@@ -108,7 +107,7 @@ def restart(request,id_equipo):
 
 
 
-
+@login_required
 def poweroff(request,id_equipo):
     print("estoy apagando el equipo......")
     equipo=Equipo.objects.get(pk=id_equipo)
@@ -125,7 +124,7 @@ def poweroff(request,id_equipo):
 
 
 
-
+@login_required
 def mem_pro_consum(id_equipo):
         equipo=Equipo.objects.get(pk=id_equipo)
         admin=equipo.user_admin.format()
@@ -170,7 +169,7 @@ def mem_pro_consum(id_equipo):
 
 
 
-
+@login_required
 def send_message(request,id_equipo):
         form = Mensajeform()
         if request.method == "GET":

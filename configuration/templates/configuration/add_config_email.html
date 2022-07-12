@@ -8,7 +8,7 @@
 
     <div class="col-md-6  ">
             <h5 class="titulos">Alerta e-mail</h5>
-            <form action=""method="POST"autocomplete="off"class="justify-content-center forms_st shadow-form  ">
+            {% comment %} <form action=""method="POST"autocomplete="off"class="justify-content-center forms_st shadow-form  ">
               <div class="row">
               <div class="mb-4">
                 {% csrf_token %} 
@@ -44,7 +44,60 @@
 
 
               </div>
+            </form> {% endcomment %}
+
+
+            <form action="" method="POST" autocomplete="off" class="row g-3 text-white">
+              {% csrf_token %} 
+
+              <div class="col-md-6">
+                {{ form.email|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.passemail|as_crispy_field }}
+
+              </div>
+              <div class="col-6">
+                {{ form.recivedemail|as_crispy_field }}
+
+              </div>
+              <div class="col-6">
+                {{ form.subject|as_crispy_field }}
+
+              </div>
+              
+              <div class="col-md-4">
+                {{ form.time_mail|as_crispy_field }}
+
+              </div>
+              <div class="col-md-6">
+                {{ form.contentemail|as_crispy_field }}
+
+              </div>
+           
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
             </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
     <div class="col-md-3"></div>
 
