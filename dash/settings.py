@@ -152,10 +152,10 @@ LOGOUT_REDIRECT_URL='login'
 
 
 
-EMAIL_HOST = config('EMAIL_HOST', default='192.168.1.1')
+EMAIL_HOST = config('EMAIL_HOST', default='')
 EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='@prueba!1962')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='prueba@amec.com.uy')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
 
